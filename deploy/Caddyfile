@@ -26,5 +26,11 @@
 	header {
 		# The API sets its own security headers.
 		-Server
+
+		# HTTPS only, for a year (the domain is the only entry point).
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "no-referrer"
+		Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
 	}
 }
