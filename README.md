@@ -162,8 +162,10 @@ node scripts/smoke-api.mjs                               # HTTP-смоук сц�
 
 ### Лицензия
 
-Файл `LICENSE` пока не добавлен (все права сохранены). Если проект должен быть
-свободным - добавьте `MIT` или `Apache-2.0`.
+**MIT** (см. `LICENSE`, Copyright © 2026 SruNal KZ): можно использовать, изменять и
+распространять при сохранении уведомления об авторских правах. Материалы
+Satbayev University (официальный шаблон титулки, логотип) в лицензию не входят и
+в репозиторий не публикуются.
 
 ---
 
@@ -272,5 +274,7 @@ cd ../miniapp && npm run build && node scripts/smoke-api.mjs
 
 ### License
 
-No `LICENSE` file yet (all rights reserved). Add `MIT` or `Apache-2.0` if the project
-should be open source.
+**MIT** (see `LICENSE`, Copyright © 2026 SruNal KZ): use, modify and redistribute with
+the copyright notice preserved. Satbayev University materials (the official
+title-page template, the logo) are not covered by the license and are not published
+in this repository.
