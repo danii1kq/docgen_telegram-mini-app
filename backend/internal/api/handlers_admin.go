@@ -35,12 +35,9 @@ func (s *Server) handleAdminLogin(w http.ResponseWriter, r *http.Request) {
 
 // handleAdminLogout is POST /api/admin/auth/logout.
 func (s *Server) handleAdminLogout(w http.ResponseWriter, r *http.Request) {
+	// Only the bearer token: a cookie would be attached to every cross-site
+	// request and turn the admin API into a CSRF target.
 	token := bearerToken(r)
-	if token == "" {
-		if cookie, err := r.Cookie("srunal_admin"); err == nil {
-			token = cookie.Value
-		}
-	}
 	if err := s.svc.AdminLogout(r.Context(), token); err != nil {
 		s.writeServiceError(w, r, err)
 		return

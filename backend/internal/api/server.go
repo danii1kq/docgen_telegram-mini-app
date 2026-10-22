@@ -254,15 +254,14 @@ func (s *Server) clientIP(r *http.Request) string {
 }
 
 // adminAuthorized reports whether the request carries a valid operator identity
-// (bearer token, session cookie or Mini App initData) without writing a response.
-// Handlers that accept more than one way in (the log link) use it directly.
+// (bearer token or Mini App initData) without writing a response. Handlers that
+// accept more than one way in (the log link) use it directly.
+//
+// The legacy "srunal_admin" cookie is deliberately not accepted any more: a
+// cookie travels with every cross-site request, so it would make the admin API
+// a CSRF target. The panel (and the old web panel) send the bearer token.
 func (s *Server) adminAuthorized(r *http.Request) bool {
 	token := bearerToken(r)
-	if token == "" {
-		if cookie, err := r.Cookie("srunal_admin"); err == nil {
-			token = cookie.Value
-		}
-	}
 	if token != "" {
 		if _, err := s.svc.AdminSession(r.Context(), token); err == nil {
 			return true
@@ -276,17 +275,15 @@ func (s *Server) adminAuthorized(r *http.Request) bool {
 	return false
 }
 
-// requireAdmin guards /api/admin/* with a bearer token, the session cookie, or
-// the Mini App identity: a validated initData payload whose chat is bound to an
-// operator opens the panel without a password or a login code.
+// requireAdmin guards /api/admin/* with a bearer token or the Mini App
+// identity: a validated initData payload whose chat is bound to an operator
+// opens the panel without a password or a login code.
 func (s *Server) requireAdmin(next http.HandlerFunc) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// Only the bearer token or the Mini App initData are accepted: the
+		// legacy cookie is gone, otherwise any site could drive the admin API
+		// with the operator's session.
 		token := bearerToken(r)
-		if token == "" {
-			if cookie, err := r.Cookie("srunal_admin"); err == nil {
-				token = cookie.Value
-			}
-		}
 		session, err := s.svc.AdminSession(r.Context(), token)
 		if err != nil {
 			if raw := strings.TrimSpace(r.Header.Get(initDataHeader)); raw != "" {
