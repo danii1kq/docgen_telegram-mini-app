@@ -37,7 +37,23 @@ func newSPAHandler(dir string) http.Handler {
 	return spaHandler{dir: trimmed, files: http.FileServer(http.Dir(trimmed))}
 }
 
+// miniAppCSP is the Content-Security-Policy of the Mini App shell: the app
+// loads only its own bundle, the Telegram SDK and the web fonts, and nobody may
+// frame it.
+const miniAppCSP = "default-src 'self'; " +
+	"base-uri 'self'; " +
+	"object-src 'none'; " +
+	"frame-ancestors 'none'; " +
+	"form-action 'self'; " +
+	"script-src 'self' https://telegram.org; " +
+	"style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
+	"font-src 'self' data: https://fonts.gstatic.com; " +
+	"img-src 'self' data: blob: https:; " +
+	"connect-src 'self'; " +
+	"manifest-src 'self'"
+
 func (h spaHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Security-Policy", miniAppCSP)
 	clean := path.Clean("/" + r.URL.Path)
 	full := filepath.Join(h.dir, filepath.FromSlash(clean))
 
