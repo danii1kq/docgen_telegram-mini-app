@@ -12,6 +12,11 @@ backend/bin/
 miniapp/node_modules/
 miniapp/dist/
 
+# The Satbayev GOST skill is not published (it carries the university logo and
+# the official title-page template). It stays in the working copy so the deploy
+# keeps shipping it, but it is never committed - see backend/skills/README.md.
+backend/skills/satbayev-gost/
+
 # Logs and OS noise
 *.log
 .DS_Store

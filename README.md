@@ -57,7 +57,7 @@ Telegram-first сервис для академических работ: оди
 │   ├── cmd/bot           # только бот и воркер
 │   ├── cmd/agentcheck    # проверка CLI агента
 │   ├── internal/         # api · auth (initData) · service · store · tgbot · worker
-│   ├── skills/           # satbayev-gost · pptx (инструкции агента, шаблоны)
+│   ├── skills/           # pptx (опубликован) · satbayev-gost (не публикуется, см. skills/README.md)
 │   └── scripts/          # setup_db.sql · smoke.ps1
 ├── miniapp/            React + Vite + TypeScript + Tailwind Mini App
 │   ├── src/telegram/      # SDK: initData, тема, safe area, MainButton/BackButton
@@ -132,6 +132,9 @@ cd deploy
   хэшем; панель оператора открывается только привязанному чату.
 - Персональные данные (ФИО, темы, документы, чаты) живут только в базе и в хранилище
   на сервере; в коде и в логах их нет.
+- Скилл `satbayev-gost` (официальный шаблон титулки и логотип университета)
+  **не публикуется** - он лежит только в рабочей копии и в вашем деплое; в репозитории
+  вместо него `backend/skills/README.md` с инструкцией по установке.
 - Хост, домен и учётные данные прода не публикуются (см. `deploy/SSH.md`).
 
 ### Документация
@@ -255,6 +258,9 @@ No secrets and no client personal data are committed:
   a bound chat.
 - Personal data (names, topics, documents, chats) lives in the database and the server
   storage only - never in the code or the logs.
+- The `satbayev-gost` skill (official title-page template and university logo) is
+  **not published**: it stays in your working copy and in your deployment, while the
+  repository only carries `backend/skills/README.md` with the installation notes.
 - The deployment host, domain and credentials are intentionally not published.
 
 ### Tests
