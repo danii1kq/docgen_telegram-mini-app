@@ -144,12 +144,17 @@ func (s *Server) handleCreateOrder(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusCreated, result)
 }
 
-// handleGetOrder is GET /api/orders/{number}: the public status page. A valid
-// ?token= upgrades the response to the full order; the Mini App reaches the
-// same full order through its chat identity (initData), no token needed.
-// Without either, the operator's notes and the contact details stay hidden.
+// handleGetOrder is GET /api/orders/{number}: the order screen. A valid ?token=
+// or the Mini App chat identity (initData) is required: the order number is
+// sequential (DG-26-0391), so a public read would let anyone enumerate the
+// orders and their topics. Without a token and without a signed-in chat the
+// answer is the neutral not-found state.
 func (s *Server) handleGetOrder(w http.ResponseWriter, r *http.Request) {
 	number := r.PathValue("number")
+	if !s.limit(w, r, "order-read", s.cfg.OrderLookupPerMin, time.Minute,
+		"Слишком много запросов, попробуйте позже") {
+		return
+	}
 	if token := strings.TrimSpace(r.URL.Query().Get("token")); token != "" {
 		order, err := s.svc.GetOrderByToken(r.Context(), number, token)
 		if err != nil {
@@ -173,16 +178,15 @@ func (s *Server) handleGetOrder(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	order, err := s.svc.GetOrderPublic(r.Context(), number)
-	if err != nil {
-		s.writeServiceError(w, r, err)
-		return
-	}
-	writeJSON(w, http.StatusOK, order.Redacted())
+	s.writeServiceError(w, r, service.NotFound("Заказ не найден"))
 }
 
 // handleLookupOrder is POST /api/orders/lookup (the /track page).
 func (s *Server) handleLookupOrder(w http.ResponseWriter, r *http.Request) {
+	if !s.limit(w, r, "order-read", s.cfg.OrderLookupPerMin, time.Minute,
+		"Слишком много запросов, попробуйте позже") {
+		return
+	}
 	var body struct {
 		Number string `json:"number"`
 		Token  string `json:"token"`
@@ -200,14 +204,19 @@ func (s *Server) handleLookupOrder(w http.ResponseWriter, r *http.Request) {
 
 // handleBatchOrders is POST /api/orders/batch (the /profile page).
 func (s *Server) handleBatchOrders(w http.ResponseWriter, r *http.Request) {
+	if !s.limit(w, r, "order-read", s.cfg.OrderLookupPerMin, time.Minute,
+		"Слишком много запросов, попробуйте позже") {
+		return
+	}
 	var body struct {
 		Items []service.TokenPair `json:"items"`
 	}
 	if !decodeJSON(w, r, &body) {
 		return
 	}
-	if len(body.Items) > 50 {
-		body.Items = body.Items[:50]
+	// Every item is a token guess, so the batch stays small.
+	if len(body.Items) > 20 {
+		body.Items = body.Items[:20]
 	}
 	orders, err := s.svc.BatchOrders(r.Context(), body.Items)
 	if err != nil {
@@ -221,6 +230,10 @@ func (s *Server) handleBatchOrders(w http.ResponseWriter, r *http.Request) {
 // order token identifies the client in the web flow; the Mini App sends no
 // token and is identified by its Telegram chat (initData).
 func (s *Server) handleClaimPayment(w http.ResponseWriter, r *http.Request) {
+	if !s.limit(w, r, "order-read", s.cfg.OrderLookupPerMin, time.Minute,
+		"Слишком много запросов, попробуйте позже") {
+		return
+	}
 	var body struct {
 		Token      string `json:"token"`
 		SenderName string `json:"senderName"`
@@ -274,6 +287,10 @@ func (s *Server) handleRequestRevision(w http.ResponseWriter, r *http.Request) {
 // authenticated operator, or to the Telegram chat that owns the order (the
 // Mini App download button).
 func (s *Server) handleOrderResult(w http.ResponseWriter, r *http.Request) {
+	if !s.limit(w, r, "order-read", s.cfg.OrderLookupPerMin, time.Minute,
+		"Слишком много запросов, попробуйте позже") {
+		return
+	}
 	number := r.PathValue("number")
 	query := r.URL.Query()
 

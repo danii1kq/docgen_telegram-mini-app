@@ -57,8 +57,12 @@ type Config struct {
 	CreateOrderPerHour int
 	ReviewPerHour      int
 	PromoCheckPerMin   int
-	LoginMaxAttempts   int
-	LoginLockout       time.Duration
+	// OrderLookupPerMin caps the token-based order lookups per IP and minute:
+	// the order token is only six characters, so the endpoints that accept it
+	// must not be guessable at full speed.
+	OrderLookupPerMin int
+	LoginMaxAttempts  int
+	LoginLockout      time.Duration
 
 	Worker WorkerConfig
 	Bot    TelegramConfig
@@ -175,6 +179,7 @@ func Load() (*Config, error) {
 		CreateOrderPerHour: getEnvInt("RATE_LIMIT_ORDERS_PER_HOUR", 20),
 		ReviewPerHour:      getEnvInt("RATE_LIMIT_REVIEWS_PER_HOUR", 10),
 		PromoCheckPerMin:   getEnvInt("RATE_LIMIT_PROMO_PER_MIN", 60),
+		OrderLookupPerMin:  getEnvInt("RATE_LIMIT_ORDER_LOOKUP_PER_MIN", 60),
 		LoginMaxAttempts:   getEnvInt("LOGIN_MAX_ATTEMPTS", 5),
 		LoginLockout:       getEnvDuration("LOGIN_LOCKOUT", 15*time.Minute),
 

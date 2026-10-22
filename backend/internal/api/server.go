@@ -444,6 +444,9 @@ func (s *Server) limit(w http.ResponseWriter, r *http.Request, bucket string, li
 	if limit <= 0 {
 		return true
 	}
+	if s.limiter == nil {
+		return true // no limiter wired (tests): never block
+	}
 	key := bucket + "|" + s.clientIP(r)
 	allowed, retryAfter := s.limiter.allow(key, limit, window)
 	if allowed {

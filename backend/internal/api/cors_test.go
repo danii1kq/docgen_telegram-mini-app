@@ -18,7 +18,8 @@ func testServer(t *testing.T) *Server {
 		cfg: &config.Config{
 			CORSOrigins: []string{"http://localhost:5173", "https://srunal.kz"},
 		},
-		log: log,
+		log:     log,
+		limiter: newLimiter(),
 	}
 }
 
