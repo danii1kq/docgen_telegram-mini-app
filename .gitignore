@@ -1,0 +1,18 @@
+# Local state and secrets
+.env
+*.local
+# Personal ops notes (real host, local paths) - the public template is deploy/SSH.md
+deploy/SSH.local.md
+
+# Backend runtime data (uploads, generated files, agent work dirs)
+backend/var/
+backend/bin/
+
+# Mini App
+miniapp/node_modules/
+miniapp/dist/
+
+# Logs and OS noise
+*.log
+.DS_Store
+Thumbs.db

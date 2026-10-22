@@ -1,0 +1,59 @@
+# SruNal KZ backend stack for the server (Ubuntu + Docker).
+#
+#   cp .env.example .env      # fill DATABASE_URL-independent values + the bot token
+#   docker compose up -d      # db + api (api applies migrations and seeds itself)
+#   docker compose logs -f api
+#
+# One-time agent authorization inside the container (credentials persist in the
+# cline-data volume):
+#   docker compose exec -it api cline auth
+#
+# The database is a service here; to use an external PostgreSQL set
+# DATABASE_URL in .env and drop the `db` service (or keep it for dev).
+
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: srunal
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-srunal}
+      POSTGRES_DB: srunal
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U srunal -d srunal"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: .
+    image: srunal-api:latest
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      # Compose overrides: talk to the db service and keep every artefact on the
+      # data volume instead of the working directory.
+      APP_ENV: prod
+      HTTP_ADDR: :8080
+      DATABASE_URL: postgres://srunal:${POSTGRES_PASSWORD:-srunal}@db:5432/srunal?sslmode=disable
+      STORAGE_DIR: /data/storage
+      GENERATOR_DIR: /data/generator
+      SKILL_SOURCE_DIR: /app/skills
+      # Cline keeps its credentials and task data on the volume.
+      GENERATOR_CONFIG_DIR: /data/cline
+      GENERATOR_DATA_DIR: /data/cline
+      TZ: Asia/Almaty
+    volumes:
+      - app-data:/data
+    ports:
+      - "${API_PORT:-8080}:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  db-data:
+  app-data:

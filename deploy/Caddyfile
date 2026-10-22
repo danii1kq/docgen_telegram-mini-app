@@ -1,0 +1,30 @@
+# Caddy in front of the API: the same origin serves the Mini App, the API and
+# the signed result links, and Let's Encrypt issues the certificate
+# automatically (HTTP-01 on ports 80/443). Plain HTTP is redirected to HTTPS.
+#
+# DOMAIN comes from deploy/.env — an https:// domain that points at this server
+# (DuckDNS works, e.g. srunal-kz.duckdns.org).
+{$DOMAIN} {
+	encode gzip
+
+	# Optional: uncomment with ACME_EMAIL set in deploy/.env to get expiry mail.
+	# tls {$ACME_EMAIL}
+
+	# Uploads: the Kaspi QR (≤ 1.5 MB) and client materials (≤ 3 × 5 MB).
+	request_body {
+		max_size 20MB
+	}
+
+	# Telegram signs initData with the bot token; forward everything as-is.
+	# X-Forwarded-For is *replaced* with the real peer address so the API's
+	# per-IP rate limits cannot be spoofed through the proxy (TRUST_PROXY=true).
+	reverse_proxy api:8080 {
+		header_up X-Forwarded-For {remote_host}
+		header_up X-Real-IP {remote_host}
+	}
+
+	header {
+		# The API sets its own security headers.
+		-Server
+	}
+}

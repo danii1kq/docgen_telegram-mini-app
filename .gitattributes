@@ -1,0 +1,20 @@
+# Normalise line endings: the repository keeps LF, Windows gets CRLF only where
+# it matters (PowerShell/batch scripts). The remote deploy script is generated
+# with LF by deploy/push.ps1 - CRLF there breaks bash.
+* text=auto eol=lf
+
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.docx binary
+*.pptx binary
+*.zip binary
+*.tgz binary
+*.xsd binary

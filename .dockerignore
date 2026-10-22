@@ -1,0 +1,20 @@
+# Build context hygiene.
+#
+# The image only needs the sources: the Mini App (package.json + src) and the
+# Go backend. Everything generated, installed or secret stays out so the
+# context is small and a Windows checkout cannot leak host binaries into the
+# Linux image.
+
+**/node_modules
+**/dist
+**/bin
+**/var
+**/.env
+**/.env.*
+!**/.env.example
+**/*.log
+**/.git
+**/.idea
+**/.vscode
+**/design/stitch/*.png
+**/design/stitch/*.html

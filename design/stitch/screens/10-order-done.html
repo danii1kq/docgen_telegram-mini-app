@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+<html lang="ru"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#EFEFF4;}body{overscroll-behavior:none;font-family:'Inter',sans-serif;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-secondary-fixed": "#011d35", "on-surface": "#181c21", "on-secondary-fixed-variant": "#314863", "outline": "#707882", "on-error-container": "#93000a", "status-danger-bg-dark": "#3A161A", "on-tertiary": "#ffffff", "status-neutral-text": "#6D6D72", "surface-dim": "#d8dae1", "text-primary-light": "#000000", "status-danger-text-dark": "#FCA5A5", "on-secondary-container": "#4b637e", "status-waiting-text-dark": "#D9A95C", "surface-container-high": "#e6e8ef", "primary-fixed-dim": "#9dcaff", "error": "#ba1a1a", "status-waiting-text": "#B45309", "on-primary-fixed": "#001d35", "inverse-primary": "#9dcaff", "on-error": "#ffffff", "surface-bright": "#f8f9ff", "outline-variant": "#c0c7d3", "inverse-on-surface": "#eef1f7", "error-container": "#ffdad6", "status-danger-text": "#B91C1C", "status-progress-text-dark": "#6AB3F3", "primary": "#005f9e", "status-success-text": "#15803D", "qr-plate-bg": "#FFFFFF", "page-bg-light": "#EFEFF4", "secondary-fixed-dim": "#b0c9e8", "status-neutral-bg": "#ECECEF", "tertiary-container": "#ad6200", "separator-dark": "#2A3743", "background": "#f8f9ff", "inverse-surface": "#2d3136", "primary-container": "#1278c3", "tertiary-fixed": "#ffdcc0", "primary-fixed": "#d1e4ff", "on-background": "#181c21", "on-primary-container": "#fdfcff", "secondary": "#49607c", "on-surface-variant": "#404751", "status-progress-bg": "#E8F1FB", "status-progress-text": "#2481CC", "on-tertiary-fixed": "#2d1600", "brand-blue": "#1D4ED8", "brand-navy": "#0F2942", "text-primary-dark": "#FFFFFF", "tertiary": "#894d00", "status-danger-bg": "#FFDAD6", "status-waiting-bg-dark": "#2F2818", "on-secondary": "#ffffff", "text-secondary-dark": "#708499", "surface-dark": "#17212B", "status-success-bg-dark": "#12291D", "surface-light": "#FFFFFF", "page-bg-dark": "#0E1621", "secondary-container": "#c7dfff", "surface-tint": "#0062a1", "text-secondary-light": "#8E8E93", "surface": "#f8f9ff", "accent-dark": "#6AB3F3", "on-tertiary-container": "#fffbff", "separator-light": "#E2E2E7", "secondary-fixed": "#d1e4ff", "on-tertiary-fixed-variant": "#6b3b00", "surface-variant": "#e0e2e9", "on-primary": "#ffffff", "surface-container-highest": "#e0e2e9", "surface-container-low": "#f1f3fa", "status-progress-bg-dark": "#1C2E40", "status-waiting-bg": "#FFF2E3", "on-primary-fixed-variant": "#00497b", "tertiary-fixed-dim": "#ffb875", "surface-container-lowest": "#ffffff", "surface-container": "#eceef4", "status-success-text-dark": "#6EE7A0", "status-success-bg": "#E8F5EE" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-lg": "1rem", "margin": "1rem", "gutter": "1rem", "space-md": "0.75rem", "space-xl": "1.5rem", "space-xs": "0.25rem", "space-sm": "0.5rem" }, fontFamily: { "body-strong": ["Inter"], "body-secondary-strong": ["Inter"], "body-lg": ["Inter"], "headline-sm": ["Inter"], "chip": ["Inter"], "section-label": ["Inter"], "button": ["Inter"], "body-secondary": ["Inter"], "step-label": ["Inter"], "caption": ["Inter"], "order-code": ["JetBrains Mono"], "headline-md": ["Inter"], "headline-lg": ["Inter"] }, fontSize: { "body-strong": ["16px", { lineHeight: "22px", fontWeight: "600" }], "body-secondary-strong": ["14px", { lineHeight: "20px", fontWeight: "600" }], "body-lg": ["16px", { lineHeight: "22px", fontWeight: "400" }], "headline-sm": ["15px", { lineHeight: "20px", fontWeight: "600" }], "chip": ["13px", { lineHeight: "16px", fontWeight: "600" }], "section-label": ["13px", { lineHeight: "16px", letterSpacing: "0.4px", fontWeight: "600" }], "button": ["16px", { lineHeight: "20px", fontWeight: "600" }], "body-secondary": ["14px", { lineHeight: "20px", fontWeight: "400" }], "step-label": ["12px", { lineHeight: "16px", fontWeight: "400" }], "caption": ["13px", { lineHeight: "18px", fontWeight: "400" }], "order-code": ["15px", { lineHeight: "20px", fontWeight: "500" }], "headline-md": ["17px", { lineHeight: "24px", fontWeight: "600" }], "headline-lg": ["22px", { lineHeight: "28px", fontWeight: "600" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-page-bg-light text-on-surface antialiased min-h-screen flex flex-col"><header class="fixed top-0 inset-x-0 z-50 bg-page-bg-light/90 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-14 px-margin flex items-center justify-between max-w-[480px] mx-auto w-full"><div class="flex items-center gap-space-xs"><button class="w-11 h-11 -ml-space-xs flex items-center justify-center text-status-progress-text active:opacity-60 transition-opacity" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back_ios_new</span></button><h1 class="font-headline-md text-headline-md text-on-surface truncate">Детали Заказа</h1></div><div class="flex items-center"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1UcJdilP7Lyyo9eL3p-gx06vIdlmdXkr9tcHlD3zjByB5xehndlFsDHfqI_hKobnK4IpXIre3ggaG6Udq1fhvIs47Fu6tFMkyeZShv3zHR9Mw_6yuKHyltTUm7zJsLjOh9sILb8p0suro7zvJwDHc3RiD0MXcBNFFGBaoh4POU9UUqVBoKaH86fz2Imxsm__B9ozOGxfugPW2TB4oVB2W5BTqhfHz-fhPJ_ZxGTcxHYTHRluLO0XgDNFTH0"/></div></div></header><main class="flex-1 flex flex-col relative w-full max-w-[480px] mx-auto px-margin pt-14 pb-safe bg-page-bg-light"><div class="flex flex-col w-full pb-24">
+<!-- Top Order Meta Info -->
+<div class="flex items-center justify-between mt-2 mb-4 px-1">
+<button class="flex items-center gap-1.5 active:opacity-60 transition-opacity text-left" id="copy-btn" onclick="navigator.clipboard?.writeText('DG-260391'); showToast();">
+<span class="font-order-code text-order-code text-on-surface tracking-tight">DG-260391</span>
+<span class="material-symbols-outlined text-[18px] text-text-secondary-light">content_copy</span>
+</button>
+<div class="h-6 px-2.5 rounded-full bg-status-success-bg flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-status-success-text" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-chip text-chip text-status-success-text">Готово</span>
+</div>
+</div>
+<!-- 4-Step Progress Tracker (All Completed) -->
+<div class="bg-surface-light rounded-xl p-4 mb-5">
+<div class="relative flex items-center justify-between">
+<div class="absolute top-3 left-4 right-4 h-0.5 bg-status-progress-text -z-0"></div>
+<!-- Step 1 -->
+<div class="relative z-10 flex flex-col items-center">
+<div class="w-6 h-6 rounded-full bg-status-progress-text text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[15px]">check</span>
+</div>
+<span class="font-step-label text-step-label text-text-secondary-light mt-1.5">Оплата</span>
+</div>
+<!-- Step 2 -->
+<div class="relative z-10 flex flex-col items-center">
+<div class="w-6 h-6 rounded-full bg-status-progress-text text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[15px]">check</span>
+</div>
+<span class="font-step-label text-step-label text-text-secondary-light mt-1.5">Проверка</span>
+</div>
+<!-- Step 3 -->
+<div class="relative z-10 flex flex-col items-center">
+<div class="w-6 h-6 rounded-full bg-status-progress-text text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[15px]">check</span>
+</div>
+<span class="font-step-label text-step-label text-text-secondary-light mt-1.5">В работе</span>
+</div>
+<!-- Step 4 -->
+<div class="relative z-10 flex flex-col items-center">
+<div class="w-6 h-6 rounded-full bg-status-progress-text text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[15px]">check</span>
+</div>
+<span class="font-step-label text-step-label text-status-progress-text font-semibold mt-1.5">Готово</span>
+</div>
+</div>
+</div>
+<!-- Work Ready Section -->
+<div class="px-1 mb-1.5">
+<span class="font-section-label text-section-label text-status-neutral-text uppercase">РАБОТА ГОТОВА</span>
+</div>
+<!-- Ready File Card -->
+<div class="bg-surface-light rounded-xl overflow-hidden mb-3">
+<div class="p-4 flex items-center gap-3.5">
+<div class="w-11 h-11 rounded-lg bg-status-progress-bg flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px] text-status-progress-text">description</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="font-body-strong text-body-strong text-on-surface truncate">DG-260391.docx</div>
+<div class="font-caption text-caption text-text-secondary-light">412 КБ · доступен 30 дней</div>
+</div>
+</div>
+<div class="h-[1px] bg-separator-light ml-[52px]"></div>
+<button class="w-full h-11 flex items-center justify-center gap-2 text-status-progress-text active:bg-status-progress-bg/40 transition-colors" onclick="triggerDownload()">
+<span class="material-symbols-outlined text-[20px]">download</span>
+<span class="font-body-secondary-strong text-body-secondary-strong">Скачать</span>
+</button>
+</div>
+<!-- Guarantee / Free Revisions Banner -->
+<div class="bg-status-success-bg rounded-xl p-3.5 flex items-start gap-2.5 mb-3">
+<span class="material-symbols-outlined text-[18px] text-status-success-text shrink-0 mt-0.5">verified</span>
+<span class="font-caption text-caption text-status-success-text leading-tight">
+      Внесём правки преподавателя бесплатно — просто напишите в поддержку.
+    </span>
+</div>
+<!-- Review Navigation Row Card -->
+<div class="bg-surface-light rounded-xl overflow-hidden mb-5">
+<button class="w-full h-[52px] px-4 flex items-center justify-between active:bg-status-neutral-bg/60 transition-colors text-left">
+<div class="flex items-center gap-3.5 min-w-0">
+<span class="material-symbols-outlined text-[22px] text-status-progress-text">star</span>
+<span class="font-body-lg text-body-lg text-on-surface">Оставить отзыв</span>
+</div>
+<span class="material-symbols-outlined text-[20px] text-text-secondary-light">chevron_right</span>
+</button>
+</div>
+<!-- Timeline Section Label -->
+<div class="px-1 mb-1.5">
+<span class="font-section-label text-section-label text-status-neutral-text uppercase">ИСТОРИЯ ЗАКАЗА</span>
+</div>
+<!-- Compact Vertical Timeline Card -->
+<div class="bg-surface-light rounded-xl p-4">
+<div class="relative pl-6 flex flex-col gap-4">
+<!-- Vertical continuous line -->
+<div class="absolute left-1.5 top-2 bottom-2 w-[1px] bg-separator-light"></div>
+<!-- Point 1 -->
+<div class="relative flex items-center justify-between text-left">
+<div class="absolute -left-6 top-1.5 w-3 h-3 rounded-full bg-separator-light border-2 border-surface-light"></div>
+<span class="font-body-secondary text-body-secondary text-text-secondary-light">Заказ создан</span>
+<span class="font-caption text-caption text-text-secondary-light">сегодня, 14:05</span>
+</div>
+<!-- Point 2 -->
+<div class="relative flex items-center justify-between text-left">
+<div class="absolute -left-6 top-1.5 w-3 h-3 rounded-full bg-separator-light border-2 border-surface-light"></div>
+<span class="font-body-secondary text-body-secondary text-text-secondary-light">Отмечена оплата</span>
+<span class="font-caption text-caption text-text-secondary-light">сегодня, 14:12</span>
+</div>
+<!-- Point 3 -->
+<div class="relative flex items-center justify-between text-left">
+<div class="absolute -left-6 top-1.5 w-3 h-3 rounded-full bg-separator-light border-2 border-surface-light"></div>
+<span class="font-body-secondary text-body-secondary text-text-secondary-light">Оплата подтверждена</span>
+<span class="font-caption text-caption text-text-secondary-light">сегодня, 14:16</span>
+</div>
+<!-- Point 4 (Highlighted) -->
+<div class="relative flex items-center justify-between text-left">
+<div class="absolute -left-6 top-1.5 w-3 h-3 rounded-full bg-status-success-text ring-4 ring-status-success-bg"></div>
+<span class="font-body-secondary-strong text-body-secondary-strong text-on-surface">Работа готова</span>
+<span class="font-caption text-caption text-status-success-text font-semibold">сегодня, 15:02</span>
+</div>
+</div>
+</div>
+<!-- Pinned Native Bottom MainButton -->
+<div class="fixed bottom-0 inset-x-0 z-40 max-w-[480px] mx-auto px-margin pb-safe mb-3">
+<button class="w-full h-12 rounded-xl bg-status-progress-text text-on-primary font-button text-button flex items-center justify-center gap-2 active:scale-[0.98] active:opacity-90 transition-transform" onclick="triggerDownload()">
+<span class="material-symbols-outlined text-[20px]">download</span>
+<span>Скачать файл</span>
+</button>
+</div>
+<!-- Temporary Feedback Toast -->
+<div class="fixed top-16 left-1/2 -translate-x-1/2 z-50 px-4 py-2 rounded-full bg-on-surface text-surface text-caption font-caption pointer-events-none opacity-0 transition-opacity duration-200" id="toast">
+    Номер заказа скопирован
+  </div>
+</div>
+<script>
+  function showToast() {
+    const toast = document.getElementById('toast');
+    if (!toast) return;
+    toast.classList.remove('opacity-0');
+    toast.classList.add('opacity-100');
+    setTimeout(() => {
+      toast.classList.remove('opacity-100');
+      toast.classList.add('opacity-0');
+    }, 1800);
+  }
+
+  function triggerDownload() {
+    // Micro-interaction simulation
+    const btn = event.currentTarget;
+    btn.classList.add('opacity-75');
+    setTimeout(() => btn.classList.remove('opacity-75'), 200);
+    const toast = document.getElementById('toast');
+    if (toast) {
+      toast.innerText = 'Загрузка файла DG-260391.docx...';
+      toast.classList.remove('opacity-0');
+      toast.classList.add('opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('opacity-100');
+        toast.classList.add('opacity-0');
+        toast.innerText = 'Номер заказа скопирован';
+      }, 2000);
+    }
+  }
+</script></main></body></html>
