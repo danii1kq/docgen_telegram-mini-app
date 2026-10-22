@@ -102,7 +102,7 @@ func (s *Service) SaveQrImage(ctx context.Context, data []byte) (string, error) 
 	ext, err := imageExt(data)
 	if err != nil {
 		return "", ValidationError(map[string]string{
-			"file": "Поддерживаются PNG, JPG, WEBP и SVG",
+			"file": "Поддерживаются PNG, JPG и WEBP",
 		})
 	}
 
@@ -110,7 +110,8 @@ func (s *Service) SaveQrImage(ctx context.Context, data []byte) (string, error) 
 	if err := os.MkdirAll(dir, 0o755); err != nil {
 		return "", fmt.Errorf("service: qr dir: %w", err)
 	}
-	// Remove previous versions so only one file is served.
+	// Remove previous versions so only one file is served (including the old
+	// SVG uploads, which are no longer accepted).
 	for _, known := range []string{".png", ".jpg", ".jpeg", ".webp", ".svg"} {
 		_ = os.Remove(filepath.Join(dir, "kaspi_qr"+known))
 	}
@@ -127,6 +128,8 @@ func (s *Service) SaveQrImage(ctx context.Context, data []byte) (string, error) 
 }
 
 // imageExt sniffs the image type by content, never by the file name alone.
+// Only raster images are accepted: an SVG can carry a script and would be
+// executed in the API's own origin when the QR link is opened directly.
 func imageExt(data []byte) (string, error) {
 	detected := http.DetectContentType(data)
 	switch {
@@ -136,11 +139,6 @@ func imageExt(data []byte) (string, error) {
 		return ".jpg", nil
 	case strings.HasPrefix(detected, "image/webp"):
 		return ".webp", nil
-	}
-	// http.DetectContentType reports SVG as text/xml or text/plain.
-	head := strings.ToLower(strings.TrimSpace(string(data[:min(256, len(data))])))
-	if strings.HasPrefix(head, "<svg") || (strings.HasPrefix(head, "<?xml") && strings.Contains(head, "<svg")) {
-		return ".svg", nil
 	}
 	return "", fmt.Errorf("service: unsupported image type %q", detected)
 }
@@ -171,8 +169,6 @@ func (s *Service) QrContentType() string {
 		return "image/jpeg"
 	case ".webp":
 		return "image/webp"
-	case ".svg":
-		return "image/svg+xml"
 	default:
 		return "application/octet-stream"
 	}
