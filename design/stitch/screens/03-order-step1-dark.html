@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="ru" style="width: 390px; min-height: 100%; position: relative;"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#0E1621;}body{overscroll-behavior:none;font-family:'Inter',sans-serif;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "page-bg": "#0E1621", "card-bg": "#17212B", "control-bg": "#242F3D", "selected-bg": "#1C2E40", "primary-text": "#FFFFFF", "secondary-text": "#708499", "accent-color": "#6AB3F3", "button-fill": "#5288C1", "separator-color": "#2A3743", "success-color": "#6EE7A0" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "14": "14px", "full": "9999px" }, spacing: { "space-lg": "1rem", "margin": "1rem", "gutter": "1rem", "space-md": "0.75rem", "space-xl": "1.5rem", "space-xs": "0.25rem", "space-sm": "0.5rem" } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head><body class="bg-[#0E1621] text-[#FFFFFF] antialiased min-h-screen flex flex-col"><header class="fixed top-0 inset-x-0 z-50 bg-[#0E1621]/95 backdrop-blur-xl pt-safe border-b border-[#2A3743]"><div class="h-14 px-margin flex items-center justify-between max-w-[480px] mx-auto w-full"><div class="flex items-center gap-space-xs"><button class="w-11 h-11 -ml-space-xs flex items-center justify-center text-[#6AB3F3] active:opacity-60 transition-opacity" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back_ios_new</span></button><h1 class="text-[17px] leading-[24px] font-semibold text-[#FFFFFF] truncate">Мастер Заказа</h1></div><div class="flex items-center"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1UcJdilP7Lyyo9eL3p-gx06vIdlmdXkr9tcHlD3zjByB5xehndlFsDHfqI_hKobnK4IpXIre3ggaG6Udq1fhvIs47Fu6tFMkyeZShv3zHR9Mw_6yuKHyltTUm7zJsLjOh9sILb8p0suro7zvJwDHc3RiD0MXcBNFFGBaoh4POU9UUqVBoKaH86fz2Imxsm__B9ozOGxfugPW2TB4oVB2W5BTqhfHz-fhPJ_ZxGTcxHYTHRluLO0XgDNFTH0"/></div></div></header><main class="flex-1 flex flex-col relative w-full max-w-[480px] mx-auto px-margin pt-14 pb-safe bg-[#0E1621]"><div class="flex flex-col w-full pb-32">
+<!-- Step & Header Title Area -->
+<div class="px-space-xs pt-space-xs pb-space-sm flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<h2 class="text-[22px] leading-[28px] font-semibold text-[#FFFFFF]">Новый заказ</h2>
+<span class="text-[13px] leading-[18px] text-[#708499]">Шаг 1 из 4</span>
+</div>
+<!-- 4-segment progress bar -->
+<div class="grid grid-cols-4 w-full pt-1 gap-2"><div class="h-1 rounded-full bg-[#6AB3F3] transition-all duration-300"></div><div class="h-1 rounded-full bg-[#2A3743] transition-all duration-300"></div><div class="h-1 rounded-full bg-[#2A3743] transition-all duration-300"></div><div class="h-1 rounded-full bg-[#2A3743] transition-all duration-300"></div></div>
+</div>
+<!-- SECTION 1: ВИД РАБОТЫ -->
+<div class="mt-space-md flex flex-col">
+<span class="px-margin mb-space-xs text-[13px] leading-[16px] tracking-[0.4px] font-semibold text-[#708499] uppercase">ВИД РАБОТЫ</span>
+<div class="bg-[#17212B] rounded-[14px] overflow-hidden flex flex-col shadow-none">
+<!-- Option 1: Реферат (Selected) -->
+<label class="work-option relative flex items-center justify-between px-space-lg h-16 cursor-pointer select-none transition-colors bg-[#1C2E40] border-[1.5px] border-[#6AB3F3] rounded-[14px] -m-[1px] z-10" data-max="40" data-min="4" data-price="80" data-type="referat" data-unit="страниц">
+<input checked="" class="sr-only" name="work_type" type="radio"/>
+<div class="flex items-center gap-space-md min-w-0">
+<div class="radio-indicator w-5 h-5 rounded-full flex items-center justify-center border-2 border-[#6AB3F3] bg-[#6AB3F3] text-white">
+<div class="w-2 h-2 rounded-full bg-[#1C2E40]"></div>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[16px] leading-[22px] font-semibold text-[#FFFFFF] truncate">Реферат</span>
+<span class="text-[13px] leading-[18px] text-[#708499] truncate">80 ₸/стр · 4-40</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-[20px] text-[#6AB3F3]">description</span>
+</label>
+<!-- Hairline divider with 52px inset -->
+<div class="h-[1px] bg-[#2A3743] ml-[52px]"></div>
+<!-- Option 2: Лабораторная -->
+<label class="work-option relative flex items-center justify-between px-space-lg h-16 cursor-pointer select-none bg-[#17212B] transition-colors" data-fixed="true" data-price="1000" data-type="lab">
+<input class="sr-only" name="work_type" type="radio"/>
+<div class="flex items-center gap-space-md min-w-0">
+<div class="radio-indicator w-5 h-5 rounded-full flex items-center justify-center border-2 border-[#708499] bg-transparent">
+<div class="w-2 h-2 rounded-full bg-transparent"></div>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[16px] leading-[22px] font-semibold text-[#FFFFFF] truncate">Лабораторная</span>
+<span class="text-[13px] leading-[18px] text-[#708499] truncate">1 000 ₸ фикс</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-[#708499] text-[20px]">science</span>
+</label>
+<!-- Hairline divider with 52px inset -->
+<div class="h-[1px] bg-[#2A3743] ml-[52px]"></div>
+<!-- Option 3: Презентация -->
+<label class="work-option relative flex items-center justify-between px-space-lg h-16 cursor-pointer select-none transition-colors bg-[#17212B]" data-max="30" data-min="5" data-price="240" data-type="pres" data-unit="слайдов">
+<input class="sr-only" name="work_type" type="radio"/>
+<div class="flex items-center gap-space-md min-w-0">
+<div class="radio-indicator w-5 h-5 rounded-full flex items-center justify-center border-2 border-[#708499] bg-transparent">
+<div class="w-2 h-2 rounded-full bg-transparent"></div>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[16px] leading-[22px] font-semibold text-[#FFFFFF] truncate">Презентация</span>
+<span class="text-[13px] leading-[18px] text-[#708499] truncate">240 ₸/слайд · 5-30</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-[20px] text-[#708499]">slideshow</span>
+</label>
+<!-- Hairline divider with 52px inset -->
+<div class="h-[1px] bg-[#2A3743] ml-[52px]"></div>
+<!-- Option 4: СРС / другое -->
+<label class="work-option relative flex items-center justify-between px-space-lg h-16 cursor-pointer select-none bg-[#17212B] transition-colors" data-fixed="true" data-price="1000" data-type="srs">
+<input class="sr-only" name="work_type" type="radio"/>
+<div class="flex items-center gap-space-md min-w-0">
+<div class="radio-indicator w-5 h-5 rounded-full flex items-center justify-center border-2 border-[#708499] bg-transparent">
+<div class="w-2 h-2 rounded-full bg-transparent"></div>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[16px] leading-[22px] font-semibold text-[#FFFFFF] truncate">СРС / другое</span>
+<span class="text-[13px] leading-[18px] text-[#708499] truncate">1 000 ₸ фикс</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-[#708499] text-[20px]">assignment</span>
+</label>
+</div>
+</div>
+<!-- SECTION 2: ЯЗЫК РАБОТЫ -->
+<div class="mt-space-lg flex flex-col" id="language-section">
+<span class="px-margin mb-space-xs text-[13px] leading-[16px] tracking-[0.4px] font-semibold text-[#708499] uppercase">ЯЗЫК РАБОТЫ</span>
+<div class="bg-[#242F3D] p-1 rounded-[12px] grid grid-cols-3 gap-1">
+<button class="lang-btn py-1.5 h-9 rounded-[10px] bg-[#17212B] text-[#FFFFFF] text-[14px] leading-[20px] font-semibold flex items-center justify-center transition-all cursor-pointer touch-manipulation" data-lang="ru" type="button">
+      Русский
+    </button>
+<button class="lang-btn py-1.5 h-9 rounded-[10px] bg-transparent text-[#708499] text-[14px] leading-[20px] font-normal hover:text-[#FFFFFF] flex items-center justify-center transition-all cursor-pointer touch-manipulation" data-lang="kk" type="button">
+      Қазақша
+    </button>
+<button class="lang-btn py-1.5 h-9 rounded-[10px] bg-transparent text-[#708499] text-[14px] leading-[20px] font-normal hover:text-[#FFFFFF] flex items-center justify-center transition-all cursor-pointer touch-manipulation" data-lang="en" type="button">
+      English
+    </button>
+</div>
+<span class="px-margin mt-1.5 text-[13px] leading-[18px] text-[#708499] leading-tight">
+    Документ будет оформлен на выбранном языке.
+  </span>
+</div>
+<!-- SECTION 3: ОБЪЁМ -->
+<div class="mt-space-lg flex flex-col" id="volume-section" style="opacity: 1; pointer-events: auto;">
+<span class="px-margin mb-space-xs text-[13px] leading-[16px] tracking-[0.4px] font-semibold text-[#708499] uppercase">ОБЪЁМ</span>
+<div class="bg-[#17212B] rounded-[14px] px-space-md py-space-xs flex items-center justify-between h-16 shadow-none">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[#708499] text-[22px]">auto_stories</span>
+<span class="text-[16px] leading-[22px] text-[#FFFFFF]" id="volume-label">Количество</span>
+</div>
+<div class="flex items-center bg-[#242F3D] rounded-lg p-0.5">
+<button class="w-11 h-11 flex items-center justify-center rounded-lg bg-[#242F3D] text-[#FFFFFF] active:opacity-70 transition-transform active:scale-95 touch-manipulation" id="vol-minus" type="button">
+<span class="material-symbols-outlined text-[20px]">remove</span>
+</button>
+<div class="w-28 text-center">
+<span class="text-[16px] leading-[22px] font-semibold text-[#FFFFFF] select-none" id="volume-val-display">10 страниц</span>
+</div>
+<button class="w-11 h-11 flex items-center justify-center rounded-lg bg-[#242F3D] text-[#FFFFFF] active:opacity-70 transition-transform active:scale-95 touch-manipulation" id="vol-plus" type="button">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+</div>
+</div>
+<span class="px-margin mt-1.5 text-[13px] leading-[18px] text-[#708499] leading-tight" id="volume-hint">Допустимо от 4 до 40 страниц · 80 ₸/стр.</span>
+</div>
+<!-- SECTION 4: РАБОТ В ЗАКАЗЕ -->
+<div class="mt-space-lg flex flex-col">
+<span class="px-margin mb-space-xs text-[13px] leading-[16px] tracking-[0.4px] font-semibold text-[#708499] uppercase">РАБОТ В ЗАКАЗЕ</span>
+<div class="bg-[#17212B] rounded-[14px] px-space-md py-space-xs flex items-center justify-between h-16 shadow-none">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[#708499] text-[22px]">layers</span>
+<span class="text-[16px] leading-[22px] text-[#FFFFFF]">Экземпляров</span>
+</div>
+<div class="flex items-center bg-[#242F3D] rounded-lg p-0.5">
+<button class="w-11 h-11 flex items-center justify-center rounded-lg bg-[#242F3D] text-[#FFFFFF] active:opacity-70 transition-transform active:scale-95 touch-manipulation" id="qty-minus" type="button">
+<span class="material-symbols-outlined text-[20px]">remove</span>
+</button>
+<div class="w-12 text-center">
+<span class="text-[16px] leading-[22px] font-semibold text-[#FFFFFF] select-none" id="qty-val-display">1</span>
+</div>
+<button class="w-11 h-11 flex items-center justify-center rounded-lg bg-[#242F3D] text-[#FFFFFF] active:opacity-70 transition-transform active:scale-95 touch-manipulation" id="qty-plus" type="button">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+</div>
+</div>
+<span class="px-margin mt-1.5 text-[13px] leading-[18px] text-[#708499] leading-tight" id="qty-hint">Скидка за объём начнётся от 5 работ</span>
+</div>
+<!-- SECTION 5: КАЛЬКУЛЯЦИЯ -->
+<div class="mt-space-lg flex flex-col">
+<span class="px-margin mb-space-xs text-[13px] leading-[16px] tracking-[0.4px] font-semibold text-[#708499] uppercase">СТОИМОСТЬ</span>
+<div class="bg-[#17212B] rounded-[14px] p-space-md flex flex-col gap-space-sm shadow-none">
+<div class="flex items-center justify-between">
+<span class="text-[14px] leading-[20px] text-[#FFFFFF] truncate pr-2" id="summary-work-name">Реферат, 10 страниц</span>
+<span class="text-[14px] leading-[20px] text-[#FFFFFF] font-medium whitespace-nowrap" id="summary-base-price">800 ₸</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-[14px] leading-[20px] text-[#708499]">Скидка за объём</span>
+<span class="text-[14px] leading-[20px] text-[#708499] whitespace-nowrap" id="summary-discount">—</span>
+</div>
+<div class="h-[1px] bg-[#2A3743] my-0.5"></div>
+<div class="flex items-center justify-between pt-0.5">
+<span class="text-[17px] leading-[24px] font-semibold text-[#FFFFFF]">Итого</span>
+<span class="text-[17px] leading-[24px] font-semibold text-[#6AB3F3]" id="summary-total">800 ₸</span>
+</div>
+</div>
+</div>
+<!-- STICKY BOTTOM BUTTON (Telegram MainButton paradigm) -->
+<div class="fixed bottom-0 inset-x-0 z-40 bg-[#0E1621]/90 backdrop-blur-md pb-8 pt-2 border-t border-[#2A3743]/50">
+<div class="max-w-[480px] mx-auto px-margin">
+<button class="w-full h-12 bg-[#5288C1] active:opacity-85 active:scale-[0.98] transition-all rounded-[12px] text-[#FFFFFF] font-semibold text-[16px] leading-[20px] flex items-center justify-center gap-space-xs touch-manipulation" id="submit-btn" type="button"><span class="">Далее →</span></button>
+</div>
+</div>
+</div>
+<script>
+  (() => {
+    let currentType = 'referat';
+    let volume = 10;
+    let qty = 1;
+
+    const typeConfig = {
+      referat: { name: 'Реферат', price: 80, min: 4, max: 40, unit: 'страниц', fixed: false, caption: 'Допустимо от 4 до 40 страниц · 80 ₸/стр.' },
+      lab: { name: 'Лабораторная', price: 1000, fixed: true, caption: 'Фиксированная цена · 1 000 ₸' },
+      pres: { name: 'Презентация', price: 240, min: 5, max: 30, unit: 'слайдов', fixed: false, caption: 'Допустимо от 5 до 30 слайдов · 240 ₸/слайд' },
+      srs: { name: 'СРС / другое', price: 1000, fixed: true, caption: 'Фиксированная цена · 1 000 ₸' }
+    };
+
+    const options = document.querySelectorAll('.work-option');
+    const volMinus = document.getElementById('vol-minus');
+    const volPlus = document.getElementById('vol-plus');
+    const volDisplay = document.getElementById('volume-val-display');
+    const volHint = document.getElementById('volume-hint');
+    const volSection = document.getElementById('volume-section');
+
+    const qtyMinus = document.getElementById('qty-minus');
+    const qtyPlus = document.getElementById('qty-plus');
+    const qtyDisplay = document.getElementById('qty-val-display');
+    const qtyHint = document.getElementById('qty-hint');
+
+    const summaryName = document.getElementById('summary-work-name');
+    const summaryBasePrice = document.getElementById('summary-base-price');
+    const summaryDiscount = document.getElementById('summary-discount');
+    const summaryTotal = document.getElementById('summary-total');
+    const submitBtn = document.getElementById('submit-btn');
+
+    function triggerHaptic() {
+      if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.HapticFeedback) {
+        window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
+      }
+    }
+
+    function recalculate() {
+      const cfg = typeConfig[currentType];
+      let perWorkCost = 0;
+      let labelText = '';
+
+      if (cfg.fixed) {
+        perWorkCost = cfg.price;
+        labelText = cfg.name;
+        volSection.style.opacity = '0.35';
+        volSection.style.pointerEvents = 'none';
+      } else {
+        perWorkCost = cfg.price * volume;
+        labelText = `${cfg.name}, ${volume} ${cfg.unit}`;
+        volSection.style.opacity = '1';
+        volSection.style.pointerEvents = 'auto';
+        volDisplay.textContent = `${volume} ${cfg.unit}`;
+        volHint.textContent = cfg.caption;
+      }
+
+      const grossTotal = perWorkCost * qty;
+      let discountAmount = 0;
+      
+      if (qty >= 5) {
+        discountAmount = Math.round(grossTotal * 0.1);
+        summaryDiscount.textContent = `−${discountAmount.toLocaleString('ru-RU')} ₸ (10%)`;
+        summaryDiscount.classList.remove('text-[#708499]');
+        summaryDiscount.classList.add('text-[#6EE7A0]');
+        qtyHint.textContent = 'Применена скидка 10% за партию от 5 работ';
+        qtyHint.classList.remove('text-[#708499]');
+        qtyHint.classList.add('text-[#6EE7A0]');
+      } else {
+        summaryDiscount.textContent = '—';
+        summaryDiscount.classList.remove('text-[#6EE7A0]');
+        summaryDiscount.classList.add('text-[#708499]');
+        qtyHint.textContent = 'Скидка за объём начнётся от 5 работ';
+        qtyHint.classList.remove('text-[#6EE7A0]');
+        qtyHint.classList.add('text-[#708499]');
+      }
+
+      const finalTotal = grossTotal - discountAmount;
+
+      summaryName.textContent = labelText;
+      summaryBasePrice.textContent = `${(perWorkCost * qty).toLocaleString('ru-RU')} ₸`;
+      summaryTotal.textContent = `${finalTotal.toLocaleString('ru-RU')} ₸`;
+      qtyDisplay.textContent = qty;
+    }
+
+    options.forEach(opt => {
+      opt.addEventListener('click', () => {
+        triggerHaptic();
+        options.forEach(o => {
+          o.classList.remove('bg-[#1C2E40]', 'border-[1.5px]', 'border-[#6AB3F3]', 'rounded-[14px]', '-m-[1px]', 'z-10');
+          o.classList.add('bg-[#17212B]');
+          const radioDot = o.querySelector('.radio-indicator');
+          radioDot.classList.remove('border-[#6AB3F3]', 'bg-[#6AB3F3]', 'text-white');
+          radioDot.classList.add('border-[#708499]', 'bg-transparent');
+          radioDot.firstElementChild.classList.remove('bg-[#1C2E40]');
+          radioDot.firstElementChild.classList.add('bg-transparent');
+          const icon = o.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.classList.remove('text-[#6AB3F3]');
+            icon.classList.add('text-[#708499]');
+          }
+        });
+
+        opt.classList.remove('bg-[#17212B]');
+        opt.classList.add('bg-[#1C2E40]', 'border-[1.5px]', 'border-[#6AB3F3]', 'rounded-[14px]', '-m-[1px]', 'z-10');
+        const activeRadio = opt.querySelector('.radio-indicator');
+        activeRadio.classList.remove('border-[#708499]', 'bg-transparent');
+        activeRadio.classList.add('border-[#6AB3F3]', 'bg-[#6AB3F3]', 'text-white');
+        activeRadio.firstElementChild.classList.remove('bg-transparent');
+        activeRadio.firstElementChild.classList.add('bg-[#1C2E40]');
+        const activeIcon = opt.querySelector('.material-symbols-outlined');
+        if (activeIcon) {
+          activeIcon.classList.remove('text-[#708499]');
+          activeIcon.classList.add('text-[#6AB3F3]');
+        }
+
+        currentType = opt.dataset.type;
+        const cfg = typeConfig[currentType];
+        if (!cfg.fixed) {
+          if (volume < cfg.min) volume = cfg.min;
+          if (volume > cfg.max) volume = cfg.max;
+        }
+        recalculate();
+      });
+    });
+
+    volMinus.addEventListener('click', () => {
+      const cfg = typeConfig[currentType];
+      if (!cfg.fixed && volume > cfg.min) {
+        triggerHaptic();
+        volume--;
+        recalculate();
+      }
+    });
+
+    volPlus.addEventListener('click', () => {
+      const cfg = typeConfig[currentType];
+      if (!cfg.fixed && volume < cfg.max) {
+        triggerHaptic();
+        volume++;
+        recalculate();
+      }
+    });
+
+    qtyMinus.addEventListener('click', () => {
+      if (qty > 1) {
+        triggerHaptic();
+        qty--;
+        recalculate();
+      }
+    });
+
+    qtyPlus.addEventListener('click', () => {
+      if (qty < 20) {
+        triggerHaptic();
+        qty++;
+        recalculate();
+      }
+    });
+
+    // Language switcher toggle
+    const langBtns = document.querySelectorAll('.lang-btn');
+    langBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        triggerHaptic();
+        langBtns.forEach(b => {
+          b.classList.remove('bg-[#17212B]', 'text-[#FFFFFF]', 'font-semibold');
+          b.classList.add('bg-transparent', 'text-[#708499]', 'font-normal');
+        });
+        btn.classList.add('bg-[#17212B]', 'text-[#FFFFFF]', 'font-semibold');
+        btn.classList.remove('bg-transparent', 'text-[#708499]', 'font-normal');
+      });
+    });
+
+    submitBtn.addEventListener('click', () => {
+      triggerHaptic();
+    });
+
+    recalculate();
+  })();
+</script></main></body></html>

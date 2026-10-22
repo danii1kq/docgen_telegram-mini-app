@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="ru"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#0E1621;}body{overscroll-behavior:none;font-family:'Inter',sans-serif;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "page-bg": "#0E1621", "card-bg": "#17212B", "stepper-btn": "#242F3D", "separator": "#2A3743", "text-main": "#FFFFFF", "text-sub": "#708499", "label-section": "#6D7883", "accent-blue": "#6AB3F3", "selected-bg": "#1C2E40", "waiting-bg": "#2F2818", "waiting-text": "#D9A95C", "tg-btn": "#5288C1", "success-bg": "#12291D", "success-text": "#6EE7A0" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "card": "14px", "full": "9999px" }, spacing: { "margin": "1rem", "gutter": "1rem" } } } };</script></head><body class="bg-[#0E1621] text-[#FFFFFF] antialiased min-h-screen flex flex-col"><header class="fixed top-0 inset-x-0 z-50 bg-[#0E1621] pt-safe border-b border-[#2A3743]"><div class="h-14 px-margin flex items-center justify-between max-w-[480px] mx-auto w-full"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-[#6AB3F3] text-[22px]">school</span><h1 class="text-[17px] font-semibold text-[#FFFFFF] tracking-tight truncate">Главная</h1></div><div class="flex items-center gap-1"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1UcJdilP7Lyyo9eL3p-gx06vIdlmdXkr9tcHlD3zjByB5xehndlFsDHfqI_hKobnK4IpXIre3ggaG6Udq1fhvIs47Fu6tFMkyeZShv3zHR9Mw_6yuKHyltTUm7zJsLjOh9sILb8p0suro7zvJwDHc3RiD0MXcBNFFGBaoh4POU9UUqVBoKaH86fz2Imxsm__B9ozOGxfugPW2TB4oVB2W5BTqhfHz-fhPJ_ZxGTcxHYTHRluLO0XgDNFTH0"/></div></div></header><main class="flex-1 flex flex-col relative w-full max-w-[480px] mx-auto px-margin pt-14 pb-28 bg-[#0E1621]"><div class="flex flex-col w-full pb-6 space-y-4">
+<!-- Greeting & Identity Header -->
+<div class="pt-2 px-1 flex items-start justify-between">
+<div class="flex flex-col">
+<h2 class="text-[22px] font-semibold text-[#FFFFFF] tracking-tight">Привет, Ануар 👋</h2>
+<p class="text-[14px] text-[#708499] mt-0.5">Работы по стандартам Satbayev University</p>
+</div>
+<div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#1C2E40] border border-[#6AB3F3]/30 text-[#6AB3F3] shrink-0 select-none"><span class="material-symbols-outlined text-[16px] leading-none text-[#6AB3F3]" style="font-variation-settings: 'FILL' 1;">verified</span><span class="text-[12px] font-semibold text-[#6AB3F3] tracking-wide whitespace-nowrap">SruNal KZ</span></div>
+</div>
+<!-- Work Type Section -->
+<div class="flex flex-col space-y-1.5">
+<div class="px-1 text-[13px] font-semibold text-[#6D7883] uppercase tracking-[0.4px]">Вид работы</div>
+<div class="bg-[#17212B] rounded-[14px] overflow-hidden flex flex-col">
+<!-- Option 1: Selected -->
+<div class="work-option active relative flex items-center justify-between h-[64px] px-margin bg-[#1C2E40] border-[1.5px] border-[#6AB3F3] rounded-t-[14px] cursor-pointer select-none transition-colors" data-price="80" data-type="pages" data-unit="стр." role="button">
+<div class="flex items-center gap-3">
+<div class="w-7 h-7 rounded-full flex items-center justify-center text-[#6AB3F3]">
+<span class="material-symbols-outlined text-[24px]">radio_button_checked</span>
+</div>
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-[#6AB3F3] text-[22px]">article</span>
+<span class="text-[15px] font-semibold text-[#FFFFFF]">Реферат</span>
+</div>
+</div>
+<div class="text-[14px] text-[#6AB3F3] font-medium">80 ₸/стр · 4–40</div>
+</div>
+<div class="w-full flex justify-end">
+<div class="h-[1px] bg-[#2A3743] w-[calc(100%-52px)]"></div>
+</div>
+<!-- Option 2 -->
+<div class="work-option relative flex items-center justify-between h-[64px] px-margin hover:bg-[#1C2E40]/50 active:bg-[#1C2E40] cursor-pointer select-none transition-colors" data-price="1000" data-type="fix" data-unit="фикс" role="button">
+<div class="flex items-center gap-3">
+<div class="w-7 h-7 rounded-full flex items-center justify-center text-[#708499]">
+<span class="material-symbols-outlined text-[24px]">radio_button_unchecked</span>
+</div>
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-[#708499] text-[22px]">science</span>
+<span class="text-[15px] font-semibold text-[#FFFFFF]">Лабораторная</span>
+</div>
+</div>
+<div class="text-[14px] text-[#708499]">1 000 ₸ фикс</div>
+</div>
+<div class="w-full flex justify-end">
+<div class="h-[1px] bg-[#2A3743] w-[calc(100%-52px)]"></div>
+</div>
+<!-- Option 3 -->
+<div class="work-option relative flex items-center justify-between h-[64px] px-margin hover:bg-[#1C2E40]/50 active:bg-[#1C2E40] cursor-pointer select-none transition-colors" data-price="240" data-type="slides" data-unit="слайд" role="button">
+<div class="flex items-center gap-3">
+<div class="w-7 h-7 rounded-full flex items-center justify-center text-[#708499]">
+<span class="material-symbols-outlined text-[24px]">radio_button_unchecked</span>
+</div>
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-[#708499] text-[22px]">slideshow</span>
+<span class="text-[15px] font-semibold text-[#FFFFFF]">Презентация</span>
+</div>
+</div>
+<div class="text-[14px] text-[#708499]">240 ₸/слайд · 5–30</div>
+</div>
+<div class="w-full flex justify-end">
+<div class="h-[1px] bg-[#2A3743] w-[calc(100%-52px)]"></div>
+</div>
+<!-- Option 4 -->
+<div class="work-option relative flex items-center justify-between h-[64px] px-margin hover:bg-[#1C2E40]/50 active:bg-[#1C2E40] cursor-pointer select-none transition-colors" data-price="1000" data-type="fix" data-unit="фикс" role="button">
+<div class="flex items-center gap-3">
+<div class="w-7 h-7 rounded-full flex items-center justify-center text-[#708499]">
+<span class="material-symbols-outlined text-[24px]">radio_button_unchecked</span>
+</div>
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-[#708499] text-[22px]">auto_stories</span>
+<span class="text-[15px] font-semibold text-[#FFFFFF]">СРС / другое</span>
+</div>
+</div>
+<div class="text-[14px] text-[#708499]">1 000 ₸ фикс</div>
+</div>
+</div>
+</div>
+<!-- Stepper / Volume Section -->
+<div class="flex flex-col space-y-1.5">
+<div class="px-1 text-[13px] font-semibold text-[#6D7883] uppercase tracking-[0.4px]">Объём</div>
+<div class="bg-[#17212B] rounded-[14px] overflow-hidden flex flex-col">
+<!-- Stepper 1: Pages -->
+<div class="flex items-center justify-between h-[56px] px-margin">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#708499] text-[22px]">format_list_numbered</span>
+<span class="text-[16px] font-semibold text-[#FFFFFF]">Страницы</span>
+</div>
+<div class="flex items-center bg-[#242F3D] rounded-lg p-0.5">
+<button aria-label="Меньше страниц" class="w-[44px] h-[40px] flex items-center justify-center active:opacity-60 text-[#FFFFFF] transition-opacity" id="btn-page-minus">
+<span class="material-symbols-outlined text-[20px]">remove</span>
+</button>
+<span class="text-[16px] font-semibold text-[#FFFFFF] w-24 text-center tabular-nums" id="page-count">10 страниц</span>
+<button aria-label="Больше страниц" class="w-[44px] h-[40px] flex items-center justify-center active:opacity-60 text-[#FFFFFF] transition-opacity" id="btn-page-plus">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+</div>
+</div>
+<div class="w-full flex justify-end">
+<div class="h-[1px] bg-[#2A3743] w-[calc(100%-52px)]"></div>
+</div>
+<!-- Stepper 2: Works count -->
+<div class="flex items-center justify-between h-[64px] px-margin">
+<div class="flex flex-col">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#708499] text-[22px]">layers</span>
+<span class="text-[16px] font-semibold text-[#FFFFFF]">Работ в заказе</span>
+</div>
+<span class="text-[12px] text-[#D9A95C] pl-[34px]">От 5 работ −10 %</span>
+</div>
+<div class="flex items-center bg-[#242F3D] rounded-lg p-0.5">
+<button aria-label="Меньше работ" class="w-[44px] h-[40px] flex items-center justify-center active:opacity-60 text-[#FFFFFF] transition-opacity" id="btn-works-minus">
+<span class="material-symbols-outlined text-[20px]">remove</span>
+</button>
+<span class="text-[16px] font-semibold text-[#FFFFFF] w-12 text-center tabular-nums" id="works-count">1</span>
+<button aria-label="Больше работ" class="w-[44px] h-[40px] flex items-center justify-center active:opacity-60 text-[#FFFFFF] transition-opacity" id="btn-works-plus">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Price Summary Card -->
+<div class="bg-[#17212B] rounded-[14px] px-margin py-3 flex flex-col space-y-2.5">
+<div class="flex items-center justify-between">
+<span class="text-[17px] font-semibold text-[#FFFFFF]">Итого</span>
+<span class="text-[17px] font-semibold text-[#6AB3F3] tabular-nums" id="total-price">800 ₸</span>
+</div>
+<div class="h-[1px] bg-[#2A3743] w-full"></div>
+<div class="flex items-center justify-between">
+<span class="text-[13px] text-[#708499]">Скидки за объём: −10 % от 5 работ</span>
+<span class="text-[12px] text-[#708499]" id="discount-badge">Базовая цена</span>
+</div>
+</div>
+<!-- Active Orders -->
+<div class="flex flex-col space-y-1.5">
+<div class="px-1 flex items-center justify-between">
+<span class="text-[13px] font-semibold text-[#6D7883] uppercase tracking-[0.4px]">Активные заказы</span>
+<span class="text-[14px] text-[#6AB3F3] active:opacity-60 cursor-pointer" role="button">Все ›</span>
+</div>
+<div class="bg-[#17212B] rounded-[14px] p-margin flex flex-col space-y-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#708499] text-[18px]">receipt_long</span>
+<span class="font-['JetBrains_Mono'] text-[15px] font-medium text-[#FFFFFF] tracking-wide">DG-260391</span>
+</div>
+<div class="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#2F2818] text-[#D9A95C]">
+<span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">hourglass_top</span>
+<span class="text-[12px] font-semibold">Ожидает оплату</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="text-[14px] text-[#708499]">Реферат · 10 стр. · 800 ₸</span>
+<span class="material-symbols-outlined text-[#708499] text-[20px]">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Secondary Grouped List: More -->
+<div class="flex flex-col space-y-1.5">
+<div class="px-1 text-[13px] font-semibold text-[#6D7883] uppercase tracking-[0.4px]">Ещё</div>
+<div class="bg-[#17212B] rounded-[14px] overflow-hidden flex flex-col">
+<div class="flex items-center justify-between h-[52px] px-margin hover:bg-[#1C2E40]/40 active:bg-[#1C2E40] transition-colors cursor-pointer" role="button">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#6AB3F3] text-[22px]">star</span>
+<span class="text-[16px] text-[#FFFFFF]">Отзывы</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="text-[14px] text-[#708499]">4.9</span>
+<span class="material-symbols-outlined text-[#708499] text-[20px]">chevron_right</span>
+</div>
+</div>
+<div class="w-full flex justify-end">
+<div class="h-[1px] bg-[#2A3743] w-[calc(100%-52px)]"></div>
+</div>
+<div class="flex items-center justify-between h-[52px] px-margin hover:bg-[#1C2E40]/40 active:bg-[#1C2E40] transition-colors cursor-pointer" role="button">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#6AB3F3] text-[22px]">support_agent</span>
+<span class="text-[16px] text-[#FFFFFF]">Поддержка</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="text-[12px] text-[#6EE7A0] px-2 py-0.5 rounded-full bg-[#12291D]">онлайн</span>
+<span class="material-symbols-outlined text-[#708499] text-[20px]">chevron_right</span>
+</div>
+</div>
+<div class="w-full flex justify-end">
+<div class="h-[1px] bg-[#2A3743] w-[calc(100%-52px)]"></div>
+</div>
+<div class="flex items-center justify-between h-[52px] px-margin hover:bg-[#1C2E40]/40 active:bg-[#1C2E40] transition-colors cursor-pointer" role="button">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#6AB3F3] text-[22px]">description</span>
+<span class="text-[16px] text-[#FFFFFF]">Документы</span>
+</div>
+<span class="material-symbols-outlined text-[#708499] text-[20px]">chevron_right</span>
+</div>
+<div class="w-full flex justify-end">
+<div class="h-[1px] bg-[#2A3743] w-[calc(100%-52px)]"></div>
+</div>
+<div class="flex items-center justify-between h-[52px] px-margin hover:bg-[#1C2E40]/40 active:bg-[#1C2E40] transition-colors cursor-pointer" role="button">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#6AB3F3] text-[22px]">info</span>
+<span class="text-[16px] text-[#FFFFFF]">О сервисе</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="text-[14px] text-[#708499]">v2.4</span>
+<span class="material-symbols-outlined text-[#708499] text-[20px]">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    let currentPricePerUnit = 80;
+    let currentUnitType = 'pages';
+    let pages = 10;
+    let works = 1;
+
+    const pageCountEl = document.getElementById('page-count');
+    const worksCountEl = document.getElementById('works-count');
+    const totalPriceEl = document.getElementById('total-price');
+    const discountBadgeEl = document.getElementById('discount-badge');
+    const mainButton = document.querySelector('button[data-path="order-wizard"]');
+
+    function calculateTotal() {
+      let subtotal = 0;
+      if (currentUnitType === 'fix') {
+        subtotal = currentPricePerUnit * works;
+      } else {
+        subtotal = (currentPricePerUnit * pages) * works;
+      }
+
+      if (works >= 5) {
+        subtotal = Math.round(subtotal * 0.9);
+        discountBadgeEl.textContent = 'Скидка 10% применена';
+        discountBadgeEl.className = 'text-[12px] text-[#6EE7A0] font-semibold';
+      } else {
+        discountBadgeEl.textContent = 'Базовая цена';
+        discountBadgeEl.className = 'text-[12px] text-[#708499]';
+      }
+
+      const formatted = subtotal.toLocaleString('ru-RU') + ' ₸';
+      totalPriceEl.textContent = formatted;
+    }
+
+    // Work type selection
+    const options = document.querySelectorAll('.work-option');
+    options.forEach(opt => {
+      opt.addEventListener('click', () => {
+        options.forEach(o => {
+          o.classList.remove('bg-[#1C2E40]', 'border-[1.5px]', 'border-[#6AB3F3]');
+          const radioIcon = o.querySelector('.material-symbols-outlined:first-child');
+          const leadingIcon = o.querySelectorAll('.material-symbols-outlined')[1];
+          const priceText = o.querySelector('div:last-child');
+          if (radioIcon) {
+            radioIcon.textContent = 'radio_button_unchecked';
+            radioIcon.parentElement.className = 'w-7 h-7 rounded-full flex items-center justify-center text-[#708499]';
+          }
+          if (leadingIcon) {
+            leadingIcon.className = 'material-symbols-outlined text-[#708499] text-[22px]';
+          }
+          if (priceText) {
+            priceText.className = 'text-[14px] text-[#708499]';
+          }
+        });
+
+        opt.classList.add('bg-[#1C2E40]', 'border-[1.5px]', 'border-[#6AB3F3]');
+        const activeRadio = opt.querySelector('.material-symbols-outlined:first-child');
+        const activeLead = opt.querySelectorAll('.material-symbols-outlined')[1];
+        const activePrice = opt.querySelector('div:last-child');
+        if (activeRadio) {
+          activeRadio.textContent = 'radio_button_checked';
+          activeRadio.parentElement.className = 'w-7 h-7 rounded-full flex items-center justify-center text-[#6AB3F3]';
+        }
+        if (activeLead) {
+          activeLead.className = 'material-symbols-outlined text-[#6AB3F3] text-[22px]';
+        }
+        if (activePrice) {
+          activePrice.className = 'text-[14px] text-[#6AB3F3] font-medium';
+        }
+
+        currentPricePerUnit = parseInt(opt.dataset.price, 10);
+        currentUnitType = opt.dataset.type;
+        calculateTotal();
+      });
+    });
+
+    // Stepper pages
+    document.getElementById('btn-page-minus').addEventListener('click', () => {
+      if (pages > 4) {
+        pages--;
+        pageCountEl.textContent = pages + ' страниц';
+        calculateTotal();
+      }
+    });
+
+    document.getElementById('btn-page-plus').addEventListener('click', () => {
+      if (pages < 50) {
+        pages++;
+        pageCountEl.textContent = pages + ' страниц';
+        calculateTotal();
+      }
+    });
+
+    // Stepper works
+    document.getElementById('btn-works-minus').addEventListener('click', () => {
+      if (works > 1) {
+        works--;
+        worksCountEl.textContent = works;
+        calculateTotal();
+      }
+    });
+
+    document.getElementById('btn-works-plus').addEventListener('click', () => {
+      if (works < 20) {
+        works++;
+        worksCountEl.textContent = works;
+        calculateTotal();
+      }
+    });
+
+    calculateTotal();
+  })();
+</script></main><div class="fixed bottom-0 inset-x-0 z-50 bg-[#0E1621] border-t border-[#2A3743] pb-safe"><div class="max-w-[480px] mx-auto px-margin pt-3 pb-8"><button class="w-full h-[48px] rounded-[12px] bg-[#5288C1] hover:bg-[#4375aa] active:scale-[0.98] transition-all flex items-center justify-center text-[#FFFFFF] text-[16px] font-semibold" data-path="order-wizard">Оформить заказ</button></div></div></body></html>

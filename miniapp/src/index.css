@@ -1,0 +1,297 @@
+/**
+ * SruNal KZ Mini App — design tokens.
+ *
+ * The palette is the Stitch "Telegram Mini App Design System":
+ * surfaces/text/separators follow the user's Telegram theme through the
+ * --tg-theme-* variables (the SDK injects them) with the design's light/dark
+ * fallbacks; status colours, accents and the QR plate are the extension
+ * palette from the design (both schemes below).
+ */
+
+@import 'tailwindcss';
+
+/* Dark scheme is driven by the Telegram colorScheme, not the system. */
+@custom-variant dark (&:where([data-scheme='dark'], [data-scheme='dark'] *));
+
+:root {
+  /* Telegram theme mapping (design.md · Appendix B) — used by the "auto" mode.
+     The forced light/dark modes below replace these with fixed palettes. */
+  --app-bg: var(--tg-theme-secondary-bg-color, #efeff4);
+  --app-surface: var(--tg-theme-section-bg-color, #ffffff);
+  --app-surface-2: var(--tg-theme-bg-color, #ffffff);
+  --app-ink: var(--tg-theme-text-color, #000000);
+  --app-ink-2: var(--tg-theme-subtitle-text-color, #8e8e93);
+  --app-hint: var(--tg-theme-hint-color, #8e8e93);
+  --app-link: var(--tg-theme-link-color, #2481cc);
+  --app-btn: var(--tg-theme-button-color, #2481cc);
+  --app-btn-text: var(--tg-theme-button-text-color, #ffffff);
+  --app-line: var(--tg-theme-section-separator-color, rgba(60, 60, 67, 0.2));
+
+  /* Extension palette — light scheme (Stitch tokens) */
+  --app-accent: #2481cc;
+  --app-accent-soft: #e8f1fb;
+  --app-outline: #707882;
+  --app-outline-variant: #c0c7d3;
+  --app-neutral: #6d6d72;
+  --app-neutral-soft: #ececef;
+  --app-success: #15803d;
+  --app-success-soft: #e8f5ee;
+  --app-warning: #b45309;
+  --app-warning-soft: #fff2e3;
+  --app-danger: #b91c1c;
+  --app-danger-soft: #ffdad6;
+  --app-brand: #1d4ed8;
+  --app-brand-navy: #0f2942;
+  --app-qr-plate: #ffffff;
+  /* Kaspi brand red for the payment button. */
+  --app-kaspi: #f14635;
+  --app-kaspi-hover: #d93b2b;
+
+  /* Layout */
+  --safe-top: 0px;
+  --safe-bottom: 16px;
+}
+
+:root[data-scheme='dark'] {
+  /* Extension palette — dark scheme (Stitch tokens). Applies to any dark
+     scheme: "auto" while Telegram is dark and the forced dark mode. */
+  --app-accent: #6ab3f3;
+  --app-accent-soft: #1c2e40;
+  --app-outline: #8c939c;
+  --app-outline-variant: #3d4a57;
+  --app-neutral: #8c939c;
+  --app-neutral-soft: #232f3b;
+  --app-success: #6ee7a0;
+  --app-success-soft: #12291d;
+  --app-warning: #d9a95c;
+  --app-warning-soft: #2f2818;
+  --app-danger: #fca5a5;
+  --app-danger-soft: #3a161a;
+}
+
+/* Forced light: fixed base palette even when Telegram is dark. The extension
+   palette stays the light one from :root (Telegram is not dark here). */
+:root[data-theme-mode='light'] {
+  --app-bg: #efeff4;
+  --app-surface: #ffffff;
+  --app-surface-2: #ffffff;
+  --app-ink: #000000;
+  --app-ink-2: #8e8e93;
+  --app-hint: #8e8e93;
+  --app-link: #2481cc;
+  --app-btn: #2481cc;
+  --app-btn-text: #ffffff;
+  --app-line: rgba(60, 60, 67, 0.2);
+}
+
+/* Forced dark: fixed base palette even when Telegram is light. The extension
+   palette comes from the dark scheme block above. */
+:root[data-theme-mode='dark'] {
+  --app-bg: #0e1621;
+  --app-surface: #17212b;
+  --app-surface-2: #17212b;
+  --app-ink: #ffffff;
+  --app-ink-2: #708499;
+  --app-hint: #708499;
+  --app-link: #6ab3f3;
+  --app-btn: #5288c1;
+  --app-btn-text: #ffffff;
+  --app-line: #2a3743;
+}
+
+@theme inline {
+  --color-page: var(--app-bg);
+  --color-surface: var(--app-surface);
+  --color-surface-2: var(--app-surface-2);
+  --color-ink: var(--app-ink);
+  --color-ink-2: var(--app-ink-2);
+  --color-hint: var(--app-hint);
+  --color-link: var(--app-link);
+  --color-btn: var(--app-btn);
+  --color-btn-text: var(--app-btn-text);
+  --color-line: var(--app-line);
+  --color-accent: var(--app-accent);
+  --color-accent-soft: var(--app-accent-soft);
+  --color-outline: var(--app-outline);
+  --color-outline-variant: var(--app-outline-variant);
+  --color-neutral: var(--app-neutral);
+  --color-neutral-soft: var(--app-neutral-soft);
+  --color-success: var(--app-success);
+  --color-success-soft: var(--app-success-soft);
+  --color-warning: var(--app-warning);
+  --color-warning-soft: var(--app-warning-soft);
+  --color-danger: var(--app-danger);
+  --color-danger-soft: var(--app-danger-soft);
+  --color-brand: var(--app-brand);
+  --color-brand-navy: var(--app-brand-navy);
+  --color-qr-plate: var(--app-qr-plate);
+  --color-kaspi: var(--app-kaspi);
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+
+  /* Type scale (Stitch tokens) */
+  --text-headline-xl: 26px;
+  --text-headline-xl--line-height: 32px;
+  --text-headline-xl--font-weight: 600;
+  --text-headline-lg: 22px;
+  --text-headline-lg--line-height: 28px;
+  --text-headline-lg--font-weight: 600;
+  --text-headline-md: 17px;
+  --text-headline-md--line-height: 24px;
+  --text-headline-md--font-weight: 600;
+  --text-headline-sm: 15px;
+  --text-headline-sm--line-height: 20px;
+  --text-headline-sm--font-weight: 600;
+  --text-body-lg: 16px;
+  --text-body-lg--line-height: 22px;
+  --text-body-strong: 16px;
+  --text-body-strong--line-height: 22px;
+  --text-body-strong--font-weight: 600;
+  --text-body-secondary: 14px;
+  --text-body-secondary--line-height: 20px;
+  --text-body-secondary-strong: 14px;
+  --text-body-secondary-strong--line-height: 20px;
+  --text-body-secondary-strong--font-weight: 600;
+  --text-caption: 13px;
+  --text-caption--line-height: 18px;
+  --text-chip: 13px;
+  --text-chip--line-height: 16px;
+  --text-chip--font-weight: 600;
+  --text-button: 16px;
+  --text-button--line-height: 20px;
+  --text-button--font-weight: 600;
+  --text-step-label: 12px;
+  --text-step-label--line-height: 16px;
+  --text-section-label: 13px;
+  --text-section-label--line-height: 16px;
+  --text-section-label--font-weight: 600;
+  --text-section-label--letter-spacing: 0.4px;
+}
+
+@layer base {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+
+  body {
+    background: var(--app-bg);
+    color: var(--app-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overscroll-behavior: none;
+    /* Telegram injects its own safe-area handling; keep the shell scrollable. */
+  }
+
+  #root {
+    min-height: 100%;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  input,
+  textarea {
+    /* ≥16px prevents the iOS auto-zoom on focus. */
+    font-size: 16px;
+  }
+
+  button {
+    font-family: inherit;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Material Symbols (the design's icon set). */
+  .icon {
+    font-family: 'Material Symbols Outlined', sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    font-variation-settings:
+      'FILL' 0,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 24;
+    -webkit-font-smoothing: antialiased;
+    user-select: none;
+  }
+
+  .icon-filled {
+    font-variation-settings:
+      'FILL' 1,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 24;
+  }
+
+  /* Card that groups Telegram-style rows. */
+  .card {
+    background: var(--app-surface);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  /* Inset hairline between rows (52px from the leading edge). */
+  .hairline {
+    height: 1px;
+    background: var(--app-line);
+    margin-left: 52px;
+  }
+
+  .hairline-full {
+    height: 1px;
+    background: var(--app-line);
+  }
+
+  /* Skeleton shimmer. */
+  .skeleton {
+    background: color-mix(in srgb, var(--app-ink) 8%, transparent);
+    border-radius: 8px;
+    animation: skeleton-pulse 1.4s ease-in-out infinite;
+  }
+
+  @keyframes skeleton-pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.55;
+    }
+  }
+
+  .fade-in {
+    animation: fade-in 0.18s ease-out;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}

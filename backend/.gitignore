@@ -1,0 +1,23 @@
+# Local secrets - never commit
+.env
+
+# Build output
+/bin/
+*.exe
+*.exe~
+*.test
+
+# Local storage: uploaded QR, client material, generated documents
+/var/
+storage/
+
+# Go workspace files
+go.work
+go.work.sum
+
+# Editor/OS noise
+.idea/
+.vscode/
+*.swp
+Thumbs.db
+desktop.ini
