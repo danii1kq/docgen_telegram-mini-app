@@ -1,6 +1,6 @@
 # SruNal KZ — Telegram bot + Mini App for academic work
 
-[Русский](README-ru.md) · **English**
+**English** · [Русский](README-ru.md)
 
 > **The service is live: [@srunal_bot](https://t.me/srunal_bot)** - open the Mini App
 > from the bot's menu button.
