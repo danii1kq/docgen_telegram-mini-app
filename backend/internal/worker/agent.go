@@ -457,14 +457,24 @@ const agentLogLimit = 8 << 20
 
 // cappedWriter appends to a file and keeps it bounded: past the limit the file
 // is rewritten with its own tail, so a long run cannot fill the disk.
+//
+// The size is tracked in memory instead of calling Stat() after every Write:
+// the agent emits thousands of small JSON chunks per run, and a syscall per
+// chunk measurably slows the generation down.
 type cappedWriter struct {
 	mu    sync.Mutex
 	file  *os.File
 	limit int64
+	size  int64
 }
 
 func newCappedWriter(file *os.File, limit int64) *cappedWriter {
-	return &cappedWriter{file: file, limit: limit}
+	writer := &cappedWriter{file: file, limit: limit}
+	// A fresh run creates the file, but a retry may append to an existing one.
+	if info, err := file.Stat(); err == nil {
+		writer.size = info.Size()
+	}
+	return writer
 }
 
 func (w *cappedWriter) Write(p []byte) (int, error) {
@@ -472,10 +482,11 @@ func (w *cappedWriter) Write(p []byte) (int, error) {
 	defer w.mu.Unlock()
 
 	n, err := w.file.Write(p)
+	w.size += int64(n)
 	if err != nil {
 		return n, err
 	}
-	if info, statErr := w.file.Stat(); statErr == nil && info.Size() > w.limit {
+	if w.size > w.limit {
 		w.compact()
 	}
 	return n, nil
@@ -502,6 +513,7 @@ func (w *cappedWriter) compact() {
 	if _, err := w.file.Write(buf[:read]); err != nil {
 		return
 	}
+	w.size = int64(read)
 	_ = w.file.Sync()
 }
 
