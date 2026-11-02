@@ -38,8 +38,12 @@ func Open(ctx context.Context, databaseURL string, log *slog.Logger) (*Store, er
 		return nil, fmt.Errorf("store: parse DATABASE_URL: %w", err)
 	}
 	config.MaxConns = 10
-	config.MinConns = 1
+	// A warm pool: the API, the worker and the bot all query the same database,
+	// and opening a connection costs a TCP handshake plus authentication. Keeping
+	// a few ready removes that from the first request after an idle period.
+	config.MinConns = 4
 	config.MaxConnLifetime = time.Hour
+	config.MaxConnIdleTime = 30 * time.Minute
 	config.HealthCheckPeriod = 30 * time.Second
 	// Server-side statement cache stays default; the API uses simple queries.
 
