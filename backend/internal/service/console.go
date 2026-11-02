@@ -13,6 +13,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/srunal/srunal-go/internal/auth"
@@ -120,7 +121,7 @@ func (s *Service) AdminOrderConsole(ctx context.Context, number string) (OrderCo
 		updated := info.ModTime().UTC()
 		console.UpdatedAt = &updated
 	}
-	lines, truncated, err := readConsoleEvents(logPath)
+	lines, truncated, err := s.readConsoleEvents(logPath)
 	if err != nil && !errors.Is(err, os.ErrNotExist) {
 		return OrderConsole{}, err
 	}
@@ -171,15 +172,30 @@ var agentCostFieldPattern = regexp.MustCompile(`"totalCost"\s*:\s*([0-9]+(?:\.[0
 // AgentRunCost returns the cumulative cost of the agent run of one order in USD.
 // The raw JSON fields are the primary source (the largest "totalCost" is the
 // final total), the rendered usage text is a fallback for other log shapes.
-// Reading only the tail keeps multi-megabyte logs cheap to scan.
+//
+// Only the tail is read: the log can reach the 8 MB cap, and reading the whole
+// file to look at its last few kilobytes is pure waste on every console poll.
 func (s *Service) AgentRunCost(number string) float64 {
-	data, err := os.ReadFile(s.ConsoleLogPath(number))
+	path := s.ConsoleLogPath(number)
+	file, err := os.Open(path)
+	if err != nil {
+		return 0
+	}
+	defer file.Close()
+
+	info, err := file.Stat()
 	if err != nil {
 		return 0
 	}
 	const tail = 4 << 20
-	if len(data) > tail {
-		data = data[len(data)-tail:]
+	size := info.Size()
+	offset := int64(0)
+	if size > tail {
+		offset = size - tail
+	}
+	data := make([]byte, size-offset)
+	if _, err := file.ReadAt(data, offset); err != nil {
+		return 0
 	}
 	text := string(data)
 
@@ -197,10 +213,62 @@ func (s *Service) AgentRunCost(number string) float64 {
 	return best
 }
 
+// consoleCache remembers the parsed tail of an agent log between console polls.
+// The viewer polls every 3 seconds while a run is live and the log does not
+// change between polls when the agent is thinking, so re-parsing the same bytes
+// is pure waste. The key is the log path plus its size and mtime: any write
+// invalidates the entry.
+type consoleCache struct {
+	mu      sync.Mutex
+	entries map[string]consoleCacheEntry
+}
+
+type consoleCacheEntry struct {
+	size      int64
+	modTime   int64
+	lines     []ConsoleLine
+	truncated bool
+}
+
+// consoleCacheEntries bounds the cache: one entry per order being watched.
+const consoleCacheEntries = 64
+
+func newConsoleCache() *consoleCache {
+	return &consoleCache{entries: make(map[string]consoleCacheEntry, consoleCacheEntries)}
+}
+
+// get returns the cached parse of the log when the file has not changed.
+func (c *consoleCache) get(path string, size, modTime int64) ([]ConsoleLine, bool, bool) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	entry, ok := c.entries[path]
+	if !ok || entry.size != size || entry.modTime != modTime {
+		return nil, false, false
+	}
+	return entry.lines, entry.truncated, true
+}
+
+// put stores the parse of the log, dropping the oldest entries when the cache
+// grows past its bound.
+func (c *consoleCache) put(path string, size, modTime int64, lines []ConsoleLine, truncated bool) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	if len(c.entries) >= consoleCacheEntries {
+		for key := range c.entries {
+			delete(c.entries, key)
+			break
+		}
+	}
+	c.entries[path] = consoleCacheEntry{size: size, modTime: modTime, lines: lines, truncated: truncated}
+}
+
 // readConsoleEvents walks the log backwards in chunks until it collected enough
 // events: a long-running tool can fill megabytes with stream chunks that carry
 // no events, and the console must still show what the agent did before them.
-func readConsoleEvents(path string) ([]ConsoleLine, bool, error) {
+//
+// The parse is cached by (path, size, mtime): the viewer polls every 3 seconds
+// and an unchanged log must not be re-parsed.
+func (s *Service) readConsoleEvents(path string) ([]ConsoleLine, bool, error) {
 	file, err := os.Open(path)
 	if err != nil {
 		return nil, false, err
@@ -210,6 +278,11 @@ func readConsoleEvents(path string) ([]ConsoleLine, bool, error) {
 	info, err := file.Stat()
 	if err != nil {
 		return nil, false, err
+	}
+	if s.console != nil {
+		if lines, truncated, ok := s.console.get(path, info.Size(), info.ModTime().UnixNano()); ok {
+			return lines, truncated, nil
+		}
 	}
 
 	var (
@@ -233,10 +306,18 @@ func readConsoleEvents(path string) ([]ConsoleLine, bool, error) {
 
 		lines, truncated := parseAgentLog(data)
 		if len(lines) >= consoleWantLines || info.Size()-offset >= consoleReadBytes {
-			return lines, truncated || offset > 0, nil
+			result := lines
+			flag := truncated || offset > 0
+			if s.console != nil {
+				s.console.put(path, info.Size(), info.ModTime().UnixNano(), result, flag)
+			}
+			return result, flag, nil
 		}
 	}
 	lines, truncated := parseAgentLog(data)
+	if s.console != nil {
+		s.console.put(path, info.Size(), info.ModTime().UnixNano(), lines, truncated)
+	}
 	return lines, truncated, nil
 }
 

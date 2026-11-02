@@ -21,11 +21,13 @@ type Service struct {
 	Log   *slog.Logger
 	// rates caches the USD -> KZT exchange rate for the operator panel.
 	rates rateCache
+	// console caches the parsed tail of the agent logs (the viewer polls them).
+	console *consoleCache
 }
 
 // New builds the service.
 func New(st *store.Store, cfg *config.Config, log *slog.Logger) *Service {
-	return &Service{Store: st, Cfg: cfg, Log: log}
+	return &Service{Store: st, Cfg: cfg, Log: log, console: newConsoleCache()}
 }
 
 // APIError is the error envelope of the API:

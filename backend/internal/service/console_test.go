@@ -8,6 +8,12 @@ import (
 	"testing"
 )
 
+// newConsoleCacheTestService builds a Service with just the console cache wired:
+// the reader only needs the cache, not a database.
+func newConsoleCacheTestService() *Service {
+	return &Service{console: newConsoleCache()}
+}
+
 // TestParseAgentLog checks the console rendering: the streaming deltas (hundreds
 // per run) are dropped, the events that explain the work survive - iterations,
 // tool commands, errors and the final result.
@@ -87,7 +93,7 @@ func TestReadConsoleEventsSkipsNoiseTail(t *testing.T) {
 		t.Fatalf("write log: %v", err)
 	}
 
-	lines, _, err := readConsoleEvents(path)
+	lines, _, err := newConsoleCacheTestService().readConsoleEvents(path)
 	if err != nil {
 		t.Fatalf("readConsoleEvents: %v", err)
 	}
@@ -97,4 +103,70 @@ func TestReadConsoleEventsSkipsNoiseTail(t *testing.T) {
 	if lines[0].Kind != consoleIteration || lines[1].Kind != consoleText {
 		t.Errorf("lines = %+v", lines[:2])
 	}
+}
+
+// TestReadConsoleEventsCache checks that an unchanged log is served from the
+// cache and that a write invalidates it: the viewer polls every 3 seconds, so a
+// stale entry would freeze the console.
+func TestReadConsoleEventsCache(t *testing.T) {
+	dir := t.TempDir()
+	path := filepath.Join(dir, "agent.log")
+
+	first := `{"ts":"2026-10-14T01:00:01Z","type":"agent_event","event":{"type":"iteration_start"}}` + "\n"
+	if err := os.WriteFile(path, []byte(first), 0o644); err != nil {
+		t.Fatalf("write log: %v", err)
+	}
+
+	svc := newConsoleCacheTestService()
+	lines, _, err := svc.readConsoleEvents(path)
+	if err != nil {
+		t.Fatalf("first read: %v", err)
+	}
+	if len(lines) != 1 || lines[0].Kind != consoleIteration {
+		t.Fatalf("first read lines = %+v", lines)
+	}
+
+	// The cached entry must be returned while the file is untouched.
+	cached, _, ok := svc.console.get(path, mustSize(t, path), mustModTime(t, path))
+	if !ok || len(cached) != 1 {
+		t.Fatalf("cache miss on an unchanged log: ok=%v lines=%d", ok, len(cached))
+	}
+
+	// A write must invalidate the entry and the next read must see the new event.
+	second := `{"ts":"2026-10-14T01:00:02Z","type":"agent_event","event":{"type":"content_end","contentType":"text","text":"готово"}}` + "\n"
+	file, err := os.OpenFile(path, os.O_APPEND|os.O_WRONLY, 0o644)
+	if err != nil {
+		t.Fatalf("open for append: %v", err)
+	}
+	if _, err := file.WriteString(second); err != nil {
+		file.Close()
+		t.Fatalf("append: %v", err)
+	}
+	file.Close()
+
+	lines, _, err = svc.readConsoleEvents(path)
+	if err != nil {
+		t.Fatalf("second read: %v", err)
+	}
+	if len(lines) != 2 {
+		t.Fatalf("the cache served a stale parse: %d lines, want 2", len(lines))
+	}
+}
+
+func mustSize(t *testing.T, path string) int64 {
+	t.Helper()
+	info, err := os.Stat(path)
+	if err != nil {
+		t.Fatalf("stat: %v", err)
+	}
+	return info.Size()
+}
+
+func mustModTime(t *testing.T, path string) int64 {
+	t.Helper()
+	info, err := os.Stat(path)
+	if err != nil {
+		t.Fatalf("stat: %v", err)
+	}
+	return info.ModTime().UnixNano()
 }
