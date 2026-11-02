@@ -61,6 +61,8 @@ ENV APP_ENV=prod \
     CLINE_NO_AUTO_UPDATE=1 \
     NPM_CONFIG_UPDATE_NOTIFIER=false \
     NO_COLOR=1 \
+    GOMEMLIMIT=1GiB \
+    GOGC=200 \
     TZ=Asia/Almaty
 
 VOLUME ["/data"]
