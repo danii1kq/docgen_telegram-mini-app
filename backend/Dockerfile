@@ -57,7 +57,9 @@ ENV APP_ENV=prod \
     GENERATOR_THINKING=high \
     GENERATOR_CONFIG_DIR=/data/cline \
     GENERATOR_DATA_DIR=/data/cline \
-    TZ=Asia/Almaty
+    TZ=Asia/Almaty \
+    GOMEMLIMIT=1GiB \
+    GOGC=200
 
 VOLUME ["/data"]
 EXPOSE 8080

@@ -12,6 +12,7 @@ import (
 	"log/slog"
 	"net"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 
@@ -148,7 +149,7 @@ const initDataHeader = "X-Telegram-Init-Data"
 func (s *Server) withMiddleware(next http.Handler) http.Handler {
 	handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		started := time.Now()
-		requestID := fmt.Sprintf("%d", started.UnixNano())
+		requestID := strconv.FormatInt(started.UnixNano(), 10)
 		w.Header().Set("X-Request-ID", requestID)
 		w.Header().Set("X-Content-Type-Options", "nosniff")
 		w.Header().Set("Referrer-Policy", "no-referrer")
@@ -161,6 +162,12 @@ func (s *Server) withMiddleware(next http.Handler) http.Handler {
 		wrapped := &statusWriter{ResponseWriter: w, status: http.StatusOK}
 		next.ServeHTTP(wrapped, r.WithContext(context.WithValue(r.Context(), contextKeyRequestID, requestID)))
 
+		// Health checks and the static Mini App bundle are polled constantly and
+		// carry no diagnostic value: logging them would bury the API calls and
+		// cost an allocation plus a write per asset request.
+		if s.quietRequest(r) {
+			return
+		}
 		s.log.Info("http",
 			"method", r.Method,
 			"path", r.URL.Path,
@@ -178,6 +185,15 @@ func (s *Server) withMiddleware(next http.Handler) http.Handler {
 		}()
 		s.cors(handler).ServeHTTP(w, r)
 	})
+}
+
+// quietRequest reports whether a request is noise in the access log: the health
+// probe (every 30 s per container) and the Mini App assets (every page load).
+func (s *Server) quietRequest(r *http.Request) bool {
+	if r.URL.Path == "/api/health" {
+		return true
+	}
+	return !strings.HasPrefix(r.URL.Path, "/api/")
 }
 
 // cors answers browser preflights and marks the configured web origins as
