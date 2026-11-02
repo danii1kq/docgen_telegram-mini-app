@@ -852,7 +852,9 @@ or clean up with the SQL in the backend README.
 
 10 orders across the whole lifecycle, 11 reviews (6 published / 4 pending / 1 rejected),
 6 promo codes, the pricing table, settings, and the demo operator
-**`@operator_almaty` / `Eshkere9113!xxx!`**.
+**`@operator_almaty`**. The password is not in the repository: set
+`SEED_OPERATOR_PASSWORD` before the demo seed runs, or take the generated one
+from the startup log (printed once).
 
 ---
 

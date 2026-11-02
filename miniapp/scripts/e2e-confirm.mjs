@@ -2,9 +2,9 @@
 // then waits for the builtin generator and prints the per-work result files.
 const base = process.env.SRUNAL_API ?? 'http://127.0.0.1:8080';
 const number = process.argv[2];
-const password = process.argv[3] ?? 'Eshkere9113!xxx!';
-if (!number) {
-  console.error('usage: node e2e-confirm.mjs <order-number> [operator-password]');
+const password = process.argv[3];
+if (!number || !password) {
+  console.error('usage: node e2e-confirm.mjs <order-number> <operator-password>');
   process.exit(1);
 }
 

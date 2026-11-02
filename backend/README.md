@@ -428,8 +428,9 @@ Migrations live in `internal/store/migrations` and run automatically at startup
 Demo data (`internal/seed`, port of `seed.ts`): 10 orders across the whole
 lifecycle, 11 reviews (6 published / 4 pending / 1 rejected), 6 promo codes
 (`SRUNAL10`, `FIRST15`, `WINTER20`, `LABHIT10`, `SPRING25`, `OLDFIVE`), prices,
-settings and the demo operator **`@operator_almaty` / `Eshkere9113!xxx!`** on a
-fresh database.
+settings and the demo operator **`@operator_almaty`** on a fresh database. The
+password is not in the repository: set `SEED_OPERATOR_PASSWORD` before the demo
+seed runs, or read the generated one from the startup log (it is printed once).
 
 Change an operator password (or create a new operator) without touching the code:
 

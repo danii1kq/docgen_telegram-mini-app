@@ -5,9 +5,12 @@ package seed
 
 import (
 	"context"
+	"crypto/rand"
 	"encoding/json"
 	"fmt"
 	"log/slog"
+	"os"
+	"strings"
 	"time"
 
 	"github.com/jackc/pgx/v5"
@@ -20,10 +23,12 @@ import (
 const DemoOperatorID = "@operator_almaty"
 
 // DemoOperatorPassword is the password of the demo operator on a fresh
-// database. Change it in production with:
+// database. It is never a literal in the repository: set SEED_OPERATOR_PASSWORD
+// when the demo data is imported, otherwise a random one is generated and
+// written to the log once. Change it later with:
 //
 //	go run ./cmd/api -operator @operator_almaty -password 'NewSecret!2026'
-const DemoOperatorPassword = "Eshkere9113!xxx!"
+var DemoOperatorPassword = resolveDemoOperatorPassword()
 
 const demoTeacher = "доц. Сериков А.Б."
 const demoNotes = "Оформление строго по методичке кафедры."
@@ -54,7 +59,7 @@ func Import(ctx context.Context, s *store.Store, pepper string, log *slog.Logger
 	if err := importPromos(ctx, tx, now); err != nil {
 		return err
 	}
-	if err := importOperator(ctx, tx); err != nil {
+	if err := importOperator(ctx, tx, log); err != nil {
 		return err
 	}
 	if _, err := tx.Exec(ctx,
@@ -546,10 +551,14 @@ func importPromos(ctx context.Context, tx pgx.Tx, now time.Time) error {
 	return nil
 }
 
-func importOperator(ctx context.Context, tx pgx.Tx) error {
+func importOperator(ctx context.Context, tx pgx.Tx, log *slog.Logger) error {
 	hash, err := auth.HashPassword(DemoOperatorPassword)
 	if err != nil {
 		return fmt.Errorf("seed: operator hash: %w", err)
+	}
+	if os.Getenv("SEED_OPERATOR_PASSWORD") == "" {
+		log.Warn("demo operator created with a generated password - set SEED_OPERATOR_PASSWORD to choose one",
+			"operator", DemoOperatorID, "password", DemoOperatorPassword)
 	}
 	_, err = tx.Exec(ctx,
 		`insert into operators (id, password_hash, display_name, active)
@@ -563,6 +572,25 @@ func importOperator(ctx context.Context, tx pgx.Tx) error {
 
 // TokenFor exposes the deterministic demo token (used by tests and the login hint).
 func TokenFor(number string) string { return seedToken(number) }
+
+// resolveDemoOperatorPassword returns the demo operator password without ever
+// keeping a usable one in the repository: SEED_OPERATOR_PASSWORD when it is set,
+// a random 24-character password otherwise. Tests read this variable, so they
+// follow whatever the seed actually used.
+func resolveDemoOperatorPassword() string {
+	if value := strings.TrimSpace(os.Getenv("SEED_OPERATOR_PASSWORD")); value != "" {
+		return value
+	}
+	const alphabet = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789"
+	buf := make([]byte, 24)
+	if _, err := rand.Read(buf); err != nil {
+		panic("seed: cannot generate the demo operator password: " + err.Error())
+	}
+	for i := range buf {
+		buf[i] = alphabet[int(buf[i])%len(alphabet)]
+	}
+	return string(buf)
+}
 
 func contains(list []string, value string) bool {
 	for _, item := range list {

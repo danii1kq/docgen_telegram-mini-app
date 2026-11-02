@@ -1,6 +1,8 @@
 # Local state and secrets
 .env
 *.local
+# Perch workspace state (agent config, local index) - never published
+.perch/
 # Personal ops notes (real host, local paths) - the public template is deploy/SSH.md
 deploy/SSH.local.md
 

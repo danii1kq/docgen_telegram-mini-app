@@ -13,7 +13,7 @@
 param(
   [string]$Base = "http://localhost:8080",
   [string]$Operator = "@operator_almaty",
-  [string]$Password = "Eshkere9113!xxx!",
+  [string]$Password = "",
   [string]$Db = "C:\Program Files\PostgreSQL\18\bin\psql.exe",
   [string]$DbUser = "srunal",
   [string]$DbName = "srunal",

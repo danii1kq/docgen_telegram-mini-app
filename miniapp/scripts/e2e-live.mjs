@@ -26,7 +26,7 @@ const baseUrl = process.env.SRUNAL_API ?? 'http://127.0.0.1:8080';
 const args = process.argv.slice(2);
 const flagIndex = (name) => args.indexOf(name);
 const passwordIndex = flagIndex('--password');
-const password = passwordIndex >= 0 ? args[passwordIndex + 1] : 'Eshkere9113!xxx!';
+const password = passwordIndex >= 0 ? args[passwordIndex + 1] : '';
 const shouldConfirm = flagIndex('--confirm') >= 0;
 // The chat id of the client is a personal identifier: it is always an argument
 // and never a default value in the repository.
