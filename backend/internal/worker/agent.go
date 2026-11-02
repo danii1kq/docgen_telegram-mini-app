@@ -150,10 +150,14 @@ func (g *agentGenerator) Generate(ctx context.Context, order *domain.Order) ([]s
 	skillName, skillDir, skillFound := skillFor(g.svc, order)
 	skillLog := "скилл " + skillName
 	if skillFound {
-		if err := copyTree(skillDir, filepath.Join(workDir, "skill")); err != nil {
-			g.svc.Log.Warn("worker: skill copy failed, using the built-in instructions",
-				"skill", skillName, "error", err)
-			skillFound = false
+		if err := linkSkill(skillDir, filepath.Join(workDir, "skill")); err != nil {
+			// A symlink is the fast path; a filesystem without symlink support
+			// (some bind mounts, Windows without privileges) falls back to a copy.
+			if copyErr := copyTree(skillDir, filepath.Join(workDir, "skill")); copyErr != nil {
+				g.svc.Log.Warn("worker: skill copy failed, using the built-in instructions",
+					"skill", skillName, "link_error", err, "error", copyErr)
+				skillFound = false
+			}
 		}
 	}
 	if !skillFound {

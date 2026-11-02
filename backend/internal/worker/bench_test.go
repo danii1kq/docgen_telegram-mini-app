@@ -94,3 +94,36 @@ func BenchmarkSplitTopicLines(b *testing.B) {
 		}
 	}
 }
+
+// BenchmarkSkillPrepare measures how the skill reaches the work directory of an
+// order: a full copy of the skill tree versus a symlink. The pptx skill is the
+// worst case (~1.1 MB, 56 files) and it is prepared for every generation.
+func BenchmarkSkillPrepare(b *testing.B) {
+	// go test runs with the package directory as the working directory.
+	src := filepath.Join("..", "..", "skills", "pptx")
+	if _, err := os.Stat(src); err != nil {
+		b.Skipf("skill source not available: %v", err)
+	}
+
+	b.Run("copy", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			dst := filepath.Join(b.TempDir(), "skill")
+			if err := copyTree(src, dst); err != nil {
+				b.Fatal(err)
+			}
+		}
+	})
+
+	b.Run("symlink", func(b *testing.B) {
+		abs, err := filepath.Abs(src)
+		if err != nil {
+			b.Fatal(err)
+		}
+		for i := 0; i < b.N; i++ {
+			dst := filepath.Join(b.TempDir(), "skill")
+			if err := linkSkill(abs, dst); err != nil {
+				b.Fatal(err)
+			}
+		}
+	})
+}

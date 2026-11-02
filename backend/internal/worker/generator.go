@@ -129,6 +129,24 @@ func skillFor(svc *service.Service, order *domain.Order) (name, dir string, ok b
 	return name, dir, true
 }
 
+// linkSkill exposes the skill directory inside the work directory without
+// copying it. The pptx skill is ~1.1 MB across 56 files (mostly OOXML schemas)
+// and the agent only reads it, so a per-order copy is pure I/O on the critical
+// path of every generation.
+//
+// A relative symlink keeps the work directory relocatable; an existing link or
+// directory from a previous attempt is replaced.
+func linkSkill(src, dst string) error {
+	if err := os.RemoveAll(dst); err != nil {
+		return err
+	}
+	target, err := filepath.Rel(filepath.Dir(dst), src)
+	if err != nil {
+		return err
+	}
+	return os.Symlink(target, dst)
+}
+
 // copyTree copies a directory tree, skipping the noise (caches, evals, VCS).
 func copyTree(src, dst string) error {
 	return filepath.WalkDir(src, func(path string, entry os.DirEntry, err error) error {
