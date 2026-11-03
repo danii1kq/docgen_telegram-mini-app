@@ -26,7 +26,7 @@ func (s *Server) handleHealth(w http.ResponseWriter, r *http.Request) {
 		"status":    status,
 		"time":      time.Now().UTC(),
 		"database":  status,
-		"version":   "1.0.0",
+		"version":   "1.0.1",
 		"botActive": s.cfg.BotConfigured(),
 	})
 }
